@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table class="db-input">
+    <tr class="table-header">
+        <th>SN-nummer</th>
+        <th>Status</th>
+        <th>Afhaling</th>
+        <th>Locatie</th>
+        <th>Levering</th>
+        <th>Locatie</th>
+        <th>Verwijder</th>
+    </tr>
+    {% for arctic in all_arctic_suns %}
+        <tr>
+            <td>{{ arctic.name }}</td>
+            <td>{{ arctic.status }}</td>
+            <td>{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
+            <td>{{ arctic.pick_up_location }}</td>
+            {% if arctic.date_out %}
+            <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+            <td>{{ arctic.destination }}</td>
+            <td><form action="{{ url_for('delete') }}"method="POST">
+                <input type="hidden" value="{{ arctic.id }}" name="id">
+                <input type="submit" value="X" name="delete"></form></td>
+        </tr>
+    {% endfor %}
+</table>
+<table class="form">
+    <form action="{{ url_for('add') }}" method="POST">
+        {{ template_form.hidden_tag() }}
+        <tr>
+            <td>{{ template_form.name.label }}</td>
+            <td>{{ template_form.status.label }}</td>          
+            <td>{{ template_form.date_in.label }}</td>
+            <td>{{ template_form.pick_up_location.label }}</td>
+            <td>{{ template_form.date_out.label }}</td>
+            <td>{{ template_form.destination.label }}</td>
+        </tr>
+        <tr> 
+            <td>{{ template_form.name() }}</td>
+            <td>{{ template_form.status() }}</td>
+            <td>{{ template_form.date_in() }}</td>
+            <td>{{ template_form.pick_up_location() }}</td>
+            <td>{{ template_form.date_out() }}</td>
+            <td>{{ template_form.destination() }}</td>
+        </tr>       
+        <tr class="button">
+            <td colspan="6">{{ template_form.submit() }}</td>
+        </tr>
+    </form>
+</table>      
+
+{% endblock %}
