@@ -15,7 +15,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL') or 'sqlite:/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  
 
-
 class ArcticSun(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(25))
@@ -77,3 +76,24 @@ def delete():
     db.session.delete(item_to_delete)
     db.session.commit()
     return redirect(url_for('index'))
+
+
+@app.route('/change/<int:id>', methods=['GET','POST'])
+def change(id):
+    item_to_change = ArcticSun.query.get(id)
+    print(item_to_change)
+
+    form = Input(request.form)
+    if request.method == 'POST':
+        item_to_change.name=form.name.data
+        item_to_change.date_in=form.date_in.data
+        item_to_change.date_out=form.date_out.data
+        item_to_change.pick_up_location=form.pick_up_location.data
+        item_to_change.destination=form.destination.data
+        item_to_change.status=form.status.data
+        db.session.commit()
+
+        return redirect(url_for('index'))
+    
+    all_arctic_suns = ArcticSun.query.all()
+    return render_template("index.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id)

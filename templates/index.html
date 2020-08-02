@@ -9,7 +9,7 @@
         <th>Locatie</th>
         <th>Levering</th>
         <th>Locatie</th>
-        <th>Verwijder</th>
+        <th></th>
     </tr>
     {% for arctic in all_arctic_suns %}
         <tr>
@@ -23,14 +23,24 @@
             <td></td>
             {% endif %}
             <td>{{ arctic.destination }}</td>
-            <td><form action="{{ url_for('delete') }}"method="POST">
-                <input type="hidden" value="{{ arctic.id }}" name="id">
-                <input type="submit" value="X" name="delete"></form></td>
+            <td>
+                <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
+                    <input type="submit" value="Wijzig"></form>
+                    
+                <form action="{{ url_for('delete') }}" method="POST" class="inline">
+                    <input type="hidden" value="{{ arctic.id }}" name="id">
+                    <input type="submit" value="X" name="delete"></form>
+            </td>
         </tr>
     {% endfor %}
 </table>
+
 <table class="form">
+    {% if edit == True %}
+    <form action="{{ url_for('change', id=edit_id) }}" method="POST">
+    {% else %}
     <form action="{{ url_for('add') }}" method="POST">
+    {% endif %}
         {{ template_form.hidden_tag() }}
         <tr>
             <td>{{ template_form.name.label }}</td>
@@ -49,7 +59,7 @@
             <td>{{ template_form.destination() }}</td>
         </tr>       
         <tr class="button">
-            <td colspan="6">{{ template_form.submit() }}</td>
+            <td colspan="6"><input id="submit" name="submit" type="submit" value="{{ "Wijzig" if edit else "Toevoegen" }}"></td>
         </tr>
     </form>
 </table>      

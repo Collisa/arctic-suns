@@ -44,3 +44,7 @@ td {
 .form {
     margin-top: 0.75rem;
 }
+
+form.inline {
+    display: inline-block;
+}
