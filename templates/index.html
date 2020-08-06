@@ -15,13 +15,21 @@
         <tr>
             <td>{{ arctic.name }}</td>
             <td>{{ arctic.status }}</td>
+            
+            {% if arctic.date_in %}
             <td>{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+
             <td>{{ arctic.pick_up_location }}</td>
+
             {% if arctic.date_out %}
             <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
             {% else %}
             <td></td>
             {% endif %}
+
             <td>{{ arctic.destination }}</td>
             <td>
                 <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
