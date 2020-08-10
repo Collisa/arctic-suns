@@ -1,0 +1,8 @@
+<3 knop naar '/all' route
+<3 login
+<3 registratie
+<3 ["loaner", "defect", "gerepareerd" radiobutton]
+<3 route enkel defect zichtbaar + knop
+<3 route enkel loaner zichtbaar + knop
+<3 sorteer op ...
+<3 zoekoptie met sleutelwoorden
