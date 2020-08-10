@@ -47,9 +47,15 @@ class Input(FlaskForm):
 
 
 
-@app.route('/', methods=["POST", "GET"])
-def index():
+@app.route('/all', methods=["GET"])
+def showAll():
     all_arctic_suns = ArcticSun.query.all()
+    return render_template("index.html", template_form=Input(), all_arctic_suns=all_arctic_suns)
+
+
+@app.route('/', methods=["GET"])
+def index():
+    all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None)
     return render_template("index.html", template_form=Input(), all_arctic_suns=all_arctic_suns)
 
 
@@ -82,7 +88,6 @@ def delete():
 def change(id):
     item_to_change = ArcticSun.query.get(id)
     print(item_to_change)
-
     form = Input(request.form)
     if request.method == 'POST':
         item_to_change.name=form.name.data
@@ -92,8 +97,6 @@ def change(id):
         item_to_change.destination=form.destination.data
         item_to_change.status=form.status.data
         db.session.commit()
-
         return redirect(url_for('index'))
-    
     all_arctic_suns = ArcticSun.query.all()
     return render_template("index.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id)
