@@ -21,15 +21,15 @@
             {% else %}
                 <td></td>
             {% endif %}
-                <td>{{ arctic.pick_up_location }}</td>
+                <td style="white-space: pre-line">{{ arctic.pick_up_location }}</td>
             {% if arctic.date_out %}
                 <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
             {% else %}
                 <td></td>
             {% endif %}
-                <td>{{ arctic.destination }}</td>
+                <td style="white-space: pre-line">{{ arctic.destination }}</td>
             {% if arctic.remarks %}
-                <td>{{ arctic.remarks }}</td>
+                <td style="white-space: pre-line">{{ arctic.remarks }}</td>
             {% else %}
                 <td></td>
             {% endif%}
