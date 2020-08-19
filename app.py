@@ -49,7 +49,7 @@ class Input(FlaskForm):
     destination = TextAreaField("Leverlocatie")
     status = StringField("Status")
     submit = SubmitField("Toevoegen")
-    remarks = StringField("Opmerkingen")
+    remarks = TextAreaField("Opmerkingen")
 
 
 
@@ -75,7 +75,8 @@ def add():
             date_out=form.date_out.data,
             pick_up_location=form.pick_up_location.data, 
             destination=form.destination.data, 
-            status=form.status.data)
+            status=form.status.data,
+            remarks=form.remarks.data)
         db.session.add(arctic_sun)
         db.session.commit()
     return redirect(url_for('index'))    
@@ -103,6 +104,7 @@ def change(id):
         item_to_change.pick_up_location=form.pick_up_location.data
         item_to_change.destination=form.destination.data
         item_to_change.status=form.status.data
+        item_to_change.remarks=form.remarks.data
         db.session.commit()
         return redirect(url_for('index'))
     return render_template("index.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id)

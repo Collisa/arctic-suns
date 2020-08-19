@@ -9,33 +9,33 @@
         <th>Locatie</th>
         <th>Levering</th>
         <th>Locatie</th>
+        <th>Opmerking</th>
         <th></th>
     </tr>
     {% for arctic in all_arctic_suns %}
         <tr>
-            <td>{{ arctic.name }}</td>
-            
-            <td>{{ arctic.status }}</td>
-            
+                <td>{{ arctic.name }}</td>
+                <td>{{ arctic.status }}</td>
             {% if arctic.date_in %}
-            <td>{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
+                <td>{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
             {% else %}
-            <td></td>
+                <td></td>
             {% endif %}
-
-            <td>{{ arctic.pick_up_location }}</td>
-
+                <td>{{ arctic.pick_up_location }}</td>
             {% if arctic.date_out %}
-            <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
+                <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
             {% else %}
-            <td></td>
+                <td></td>
             {% endif %}
-
-            <td>{{ arctic.destination }}</td>
+                <td>{{ arctic.destination }}</td>
+            {% if arctic.remarks %}
+                <td>{{ arctic.remarks }}</td>
+            {% else %}
+                <td></td>
+            {% endif%}
             <td>
                 <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
                     <input type="submit" value="Wijzig"></form>
-                    
                 <form action="{{ url_for('delete') }}" method="POST" class="inline">
                     <input type="hidden" value="{{ arctic.id }}" name="id">
                     <input type="submit" value="X" name="delete"></form>
@@ -58,6 +58,7 @@
             <td>{{ template_form.pick_up_location.label }}</td>
             <td>{{ template_form.date_out.label }}</td>
             <td>{{ template_form.destination.label }}</td>
+            <td>{{ template_form.remarks.label }}</td>
         </tr>
         <tr> 
             <td>{{ template_form.name() }}</td>
@@ -66,9 +67,10 @@
             <td>{{ template_form.pick_up_location() }}</td>
             <td>{{ template_form.date_out() }}</td>
             <td>{{ template_form.destination() }}</td>
+            <td>{{ template_form.remarks() }}</td>
         </tr>       
         <tr class="button">
-            <td colspan="6"><input id="submit" name="submit" type="submit" value="{{ "Wijzig" if edit else "Toevoegen" }}"></td>
+            <td colspan="7"><input id="submit" name="submit" type="submit" value="{{ 'Wijzig' if edit else 'Toevoegen' }}"></td>
         </tr>
     </form>
 </table>      
