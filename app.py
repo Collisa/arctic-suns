@@ -5,15 +5,19 @@ from wtforms.fields.html5 import DateField
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from os import environ
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
-db = SQLAlchemy(app)
+
 
 app.config['SECRET_KEY'] = 'c5723c7a0956175ca1e56086adc6bdc18064d2659be3b04fcd3bb89d1fbfe482'
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL') or 'sqlite:///arctic_DB2.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
  
+
 
 class ArcticSun(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -23,6 +27,7 @@ class ArcticSun(db.Model):
     pick_up_location = db.Column(db.String(100))
     destination = db.Column(db.String(100))
     status = db.Column(db.String(15))
+    remarks = db.Column(db.String(100))
 
     # def __init__(self, id, name, date_in, date_out, pick_up_location, destination, status):
     #     self.id = id
@@ -44,6 +49,7 @@ class Input(FlaskForm):
     destination = TextAreaField("Leverlocatie")
     status = StringField("Status")
     submit = SubmitField("Toevoegen")
+    remarks = StringField("Opmerkingen")
 
 
 
