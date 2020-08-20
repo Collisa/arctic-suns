@@ -4,6 +4,24 @@
  * Bijhouden van locaties van onze arctic sun machines.
 
 ## Installatie
+- clone repository to new folder
+- Scripts/activate
+
+#### If pip problems
+- python -m ensurepip
+- python -m pip install --upgrade pip
+
+### Install Dependencies:
+- pip install -r requirements.txt
+
+### Create database
+- python (to start python cli)
+- from app import db
+- db.create_all()
+- exit()
+
+### Start app locally:
+flask run
 
 
 ## Upgraden
