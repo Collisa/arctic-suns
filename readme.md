@@ -31,3 +31,15 @@ flask run
 
 * lokaal: ```flask db upgrade```
 * online: ```heroku run flask db upgrade```
+
+## (1ste) Gebruiker toevoegen
+* lokaal: flask users create gebruikersnaam emailadres wachtwoord
+* online: heroku run flask users create gebruikersnaam emailadres wachtwoord
+
+
+### Pagina's
+* /login
+* /register
+* /logout
+* / (= index)
+* /all
