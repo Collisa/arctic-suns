@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+<!--Hoofding-->
+<h1>Arctic Sun</h1>
 
+<!--Link-knopjes-->
+<a class="alle-knop" href="{{ url_for('showAll') }}">Alles</a>
+
+<!--Tabel weergave-->
 <table class="db-input">
     <tr class="table-header">
         <th>SN-nummer</th>

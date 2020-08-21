@@ -48,3 +48,13 @@ td {
 form.inline {
     display: inline-block;
 }
+
+.alle-knop {
+    position: absolute;
+    top: 5vh;
+    right: 10vw;
+    background-color: rgb(174, 219, 245);
+    border-radius: 25%;
+    padding: 0.5rem 1rem;
+    color: black;
+}
