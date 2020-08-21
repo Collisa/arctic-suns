@@ -15,10 +15,12 @@
 - pip install -r requirements.txt
 
 ### Create database
-- python (to start python cli)
-- from app import db
-- db.create_all()
-- exit()
+```sh
+$ python # (to start python cli)
+$ from app import db
+$ db.create_all()
+$ exit()
+```
 
 ### Start app locally:
 flask run
