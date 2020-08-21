@@ -11,6 +11,8 @@ h1 {
     text-align: center;
 }
 
+
+/* index en showAll styling */
 .db-input td {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -25,7 +27,7 @@ table {
 
 tr {
     margin: 0;
-}
+    }
 
 th, td {
     width: 15vw;
@@ -49,12 +51,61 @@ form.inline {
     display: inline-block;
 }
 
+.knop {
+    background-color: rgb(174, 219, 245);
+    border-radius: 15%;
+    padding: 0.5rem 1rem;
+    color: black;
+}
+
 .alle-knop {
     position: absolute;
     top: 5vh;
-    right: 10vw;
-    background-color: rgb(174, 219, 245);
-    border-radius: 25%;
-    padding: 0.5rem 1rem;
-    color: black;
+    right: 5vw;
+}
+
+.recent-knop {
+    position: absolute;
+    top: 5vh;
+    right: 10.5vw;
+}
+
+
+
+/* register and login styling */
+
+form.register-login {
+    background-color:  rgb(174, 219, 245);
+    width: 50vw;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+fieldset {
+    border: 0.5rem solid royalblue;
+}
+
+legend {
+    font-size: 2rem;
+}
+
+.label {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+small {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.submit {
+    margin-top: 1rem;
+    background-color: white;
 }

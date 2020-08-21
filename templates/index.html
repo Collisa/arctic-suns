@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+
 <!--Hoofding-->
 <h1>Arctic Sun</h1>
 
 <!--Link-knopjes-->
-<a class="alle-knop" href="{{ url_for('showAll') }}">Alles</a>
+<a class="knop recent-knop" href="{{ url_for('index') }}">Recent</a>
+<a class="knop alle-knop" href="{{ url_for('showAll') }}">Alles</a>
+
 
 <!--Tabel weergave-->
 <table class="db-input">
