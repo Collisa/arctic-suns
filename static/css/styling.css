@@ -70,6 +70,12 @@ form.inline {
     right: 10.5vw;
 }
 
+.logout-knop {
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+}
+
 
 
 /* register and login styling */
