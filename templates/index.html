@@ -42,6 +42,7 @@
         <th>Opmerking</th>
         <th></th>
     </tr>
+    <tbody class="oddeven">
     {% for arctic in all_arctic_suns %}
         <tr>
                 <td>{{ arctic.name }}</td>
@@ -72,6 +73,7 @@
             </td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
 
 <table class="form">

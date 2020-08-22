@@ -42,6 +42,9 @@ td {
     text-align: center;
     font-size: 1rem;
 }
+tbody.oddeven tr:nth-child(even) td {
+    background-color: rgb(184, 229, 255);
+} 
 
 .form {
     margin-top: 0.75rem;
@@ -124,4 +127,9 @@ small {
 .info, .danger {
     background-color: orange;
     text-align: center;
+}
+
+.succes, .info, .danger {
+    padding: 1.25rem;
+    margin-bottom: 2rem;
 }
