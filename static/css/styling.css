@@ -115,3 +115,13 @@ small {
     margin-top: 1rem;
     background-color: white;
 }
+
+.succes {
+    background-color: lightgreen;
+    text-align: center;
+}
+
+.info, .danger {
+    background-color: orange;
+    text-align: center;
+}

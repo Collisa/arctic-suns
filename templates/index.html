@@ -4,6 +4,26 @@
 <!--Hoofding-->
 <h1>Arctic Sun</h1>
 
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == "succes" %}
+                <div class="category succes">
+                    {{ message }}
+                </div>
+            {% elif category == "danger" %}
+                <div class="category danger">
+                    {{ message }}
+                </div>
+            {% elif category == "info" %}
+                <div class="category info">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 <!--Link-knopjes-->
 <a class="knop logout-knop" href="{{ url_for('logout') }}">Log uit</a>
 <a class="knop recent-knop" href="{{ url_for('index') }}">Recent</a>

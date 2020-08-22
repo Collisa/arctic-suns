@@ -5,6 +5,27 @@
 <h1>Log In</h1>
 
 
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == "succes" %}
+                <div class="category succes">
+                    {{ message }}
+                </div>
+            {% elif category == "danger" %}
+                <div class="category danger">
+                    {{ message }}
+                </div>
+            {% elif category == "info" %}
+                <div class="category info">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
 <form class="register-login" action="" method="POST">
     {{ form.hidden_tag() }}
     <fieldset>
