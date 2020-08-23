@@ -37,9 +37,9 @@
             <th class="w-1/8">Opmerking</th>
             <th class="w-1/8"></th>
         </tr>
-        <tbody class="oddeven">
+        <tbody>
         {% for arctic in all_arctic_suns %}
-            <tr>
+            <tr class="odd:bg-blue-100">
                     <td>{{ arctic.name }}</td>
                     <td>{{ arctic.status }}</td>
                 {% if arctic.date_in %}

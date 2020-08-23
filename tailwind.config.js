@@ -9,7 +9,9 @@ module.exports = {
       }
     },
   },
-  variants: {},
+  variants: {
+    backgroundColor: ['responsive', 'hover', 'focus', 'odd']
+  },
   plugins: [
     require('@tailwindcss/ui'),
   ],
