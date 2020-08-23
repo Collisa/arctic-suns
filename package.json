@@ -1,0 +1,25 @@
+{
+  "name": "env-arcticsun-app",
+  "version": "1.0.0",
+  "description": "* Bijhouden van locaties van onze arctic sun machines.",
+  "main": "tailwind.config.js",
+  "dependencies": {
+    "@tailwindcss/ui": "^0.5.0",
+    "tailwindcss": "^1.7.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tailwindcss build static/css/tailwind-css.css -o static/css/tailwind-app.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LisaCollignon/arctic-suns.git"
+  },
+  "author": "Lisa Collignon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LisaCollignon/arctic-suns/issues"
+  },
+  "homepage": "https://github.com/LisaCollignon/arctic-suns#readme"
+}
