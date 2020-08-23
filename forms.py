@@ -20,11 +20,11 @@ class Input(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), Length(min=2, max=20)])
+    username = StringField("Gebruikersnaam", validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password")])
-    submit = SubmitField("Sign Up")
+    password = PasswordField("Paswoord", validators=[DataRequired()])
+    confirm_password = PasswordField("Bevestig Paswoord", validators=[DataRequired(), EqualTo("password")])
+    submit = SubmitField("Registreer")
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -39,6 +39,6 @@ class RegistrationForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    remember = BooleanField("Remember Me")
-    submit = SubmitField("Login")
+    password = PasswordField("Paswoord", validators=[DataRequired()])
+    remember = BooleanField("Onthoud Me")
+    submit = SubmitField("Log In")

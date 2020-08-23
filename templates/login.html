@@ -7,7 +7,7 @@
 
 <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg" alt="Workflow">
+      {% include "components/hummingbird_icon.html" %}
       <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
         Log in met je account
       </h2>
@@ -39,7 +39,7 @@
   
             <div class="text-sm leading-5">
               <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                Forgot your password?
+                Paswoord vergeten?
               </a>
             </div>
           </div>
@@ -50,10 +50,6 @@
             </span>
           </div>
         </form>
-        
-    <small class=" block text-gray-600 mt-4 text-center">
-        Need An Account? <a class="font-bold" href="{{ url_for('register') }}">Sign Up Now</a>
-    </small>
       </div>
     </div>
   </div>
