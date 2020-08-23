@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms.fields.html5 import DateField
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from models import User
 
@@ -14,7 +14,7 @@ class Input(FlaskForm):
     date_out = DateField("Levering")
     pick_up_location = TextAreaField("Afhaallocatie")
     destination = TextAreaField("Leverlocatie")
-    status = StringField("Status")
+    status = SelectField("Status", choices=[("Gerepareerd", "Gerepareerd"), ("Loaner", "Loaner"), ("Defect", "Defect")])
     submit = SubmitField("Toevoegen")
     remarks = TextAreaField("Opmerkingen")
 
