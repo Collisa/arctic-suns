@@ -1,0 +1,13 @@
+@tailwind base;
+
+@tailwind components;
+
+body {
+    font-family: "Krub", sans-serif;
+}
+
+.button {
+    @apply bg-blue-300 p-2 rounded-lg;
+}
+
+@tailwind utilities;

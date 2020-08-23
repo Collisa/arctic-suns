@@ -14,7 +14,7 @@ class Input(FlaskForm):
     date_out = DateField("Levering")
     pick_up_location = TextAreaField("Afhaallocatie")
     destination = TextAreaField("Leverlocatie")
-    status = SelectField("Status", choices=[("Gerepareerd", "Gerepareerd"), ("Loaner", "Loaner"), ("Defect", "Defect")])
+    status = SelectField("Status", choices=["Gerepareerd", "Loaner", "Defect"])
     submit = SubmitField("Toevoegen")
     remarks = TextAreaField("Opmerkingen")
 

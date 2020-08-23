@@ -2,109 +2,107 @@
 {% block content %}
 
 <!--Hoofding-->
-<h1>Arctic Sun</h1>
+<header class="container mx-auto mt-8">
+    <div class="flex items-baseline">
+        <div class="flex-1">
+            <a class="button" href="{{ url_for('logout') }}">Log uit</a>
+        </div>
+        <div class="flex-1 text-center text-blue-900">
+            <h1 class="font-bold text-3xl">Arctic Sun</h1>
+        </div>
+        <div class="flex-1 text-right">
+            <a class="button" href="{{ url_for('index') }}">Recent</a>
+            <a class="button" href="{{ url_for('showAll') }}">Alles</a>
+        </div>
+    </div>
+</header>
 
-{% with messages = get_flashed_messages(with_categories=True) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            {% if category == "succes" %}
-                <div class="category succes">
-                    {{ message }}
-                </div>
-            {% elif category == "danger" %}
-                <div class="category danger">
-                    {{ message }}
-                </div>
-            {% elif category == "info" %}
-                <div class="category info">
-                    {{ message }}
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 
-<!--Link-knopjes-->
-<a class="knop logout-knop" href="{{ url_for('logout') }}">Log uit</a>
-<a class="knop recent-knop" href="{{ url_for('index') }}">Recent</a>
-<a class="knop alle-knop" href="{{ url_for('showAll') }}">Alles</a>
+
+{% include 'components/flash_messages.html' %}
+
 
 
 <!--Tabel weergave-->
-<table class="db-input">
-    <tr class="table-header">
-        <th>SN-nummer</th>
-        <th>Status</th>
-        <th>Afhaling</th>
-        <th>Locatie</th>
-        <th>Levering</th>
-        <th>Locatie</th>
-        <th>Opmerking</th>
-        <th></th>
-    </tr>
-    <tbody class="oddeven">
-    {% for arctic in all_arctic_suns %}
-        <tr>
-                <td>{{ arctic.name }}</td>
-                <td>{{ arctic.status }}</td>
-            {% if arctic.date_in %}
-                <td>{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
-            {% else %}
-                <td></td>
-            {% endif %}
-                <td style="white-space: pre-line">{{ arctic.pick_up_location }}</td>
-            {% if arctic.date_out %}
-                <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
-            {% else %}
-                <td></td>
-            {% endif %}
-                <td style="white-space: pre-line">{{ arctic.destination }}</td>
-            {% if arctic.remarks %}
-                <td style="white-space: pre-line">{{ arctic.remarks }}</td>
-            {% else %}
-                <td></td>
-            {% endif%}
-            <td>
-                <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
-                    <input type="submit" value="Wijzig"></form>
-                <form action="{{ url_for('delete') }}" method="POST" class="inline">
-                    <input type="hidden" value="{{ arctic.id }}" name="id">
-                    <input type="submit" value="X" name="delete"></form>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="container mx-auto">
 
-<table class="form">
+    <table class="w-full text-center bg-blue-200 mt-4 table-fixed">
+        <tr class="table-header border-4 border-blue-800">
+            <th class="w-1/8">SN-nummer</th>
+            <th class="w-1/8">Status</th>
+            <th class="w-1/8">Afhaling</th>
+            <th class="w-1/8">Locatie</th>
+            <th class="w-1/8">Levering</th>
+            <th class="w-1/8">Locatie</th>
+            <th class="w-1/8">Opmerking</th>
+            <th class="w-1/8"></th>
+        </tr>
+        <tbody class="oddeven">
+        {% for arctic in all_arctic_suns %}
+            <tr>
+                    <td>{{ arctic.name }}</td>
+                    <td>{{ arctic.status }}</td>
+                {% if arctic.date_in %}
+                    <td>{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                    <td style="white-space: pre-line">{{ arctic.pick_up_location }}</td>
+                {% if arctic.date_out %}
+                    <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                    <td style="white-space: pre-line">{{ arctic.destination }}</td>
+                {% if arctic.remarks %}
+                    <td style="white-space: pre-line">{{ arctic.remarks }}</td>
+                {% else %}
+                    <td></td>
+                {% endif%}
+                <td>
+                    <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
+                        <input class="button py-1" type="submit" value="Wijzig"></form>
+                    <form action="{{ url_for('delete') }}" method="POST" class="inline">
+                        <input type="hidden" value="{{ arctic.id }}" name="id">
+                        <input class="button py-1" type="submit" value="X" name="delete"></form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+<table class="w-full text-center bg-blue-200 mt-4">
     {% if edit == True %}
     <form action="{{ url_for('change', id=edit_id) }}" method="POST">
     {% else %}
     <form action="{{ url_for('add') }}" method="POST">
     {% endif %}
         {{ template_form.hidden_tag() }}
-        <tr>
-            <td>{{ template_form.name.label }}</td>
-            <td>{{ template_form.status.label }}</td>          
-            <td>{{ template_form.date_in.label }}</td>
-            <td>{{ template_form.pick_up_location.label }}</td>
-            <td>{{ template_form.date_out.label }}</td>
-            <td>{{ template_form.destination.label }}</td>
-            <td>{{ template_form.remarks.label }}</td>
+        <tr class="border-4 border-blue-800 font-bold">
+            <td class="w-1/8">{{ template_form.name.label }}</td>
+            <td class="w-1/8">{{ template_form.status.label }}</td>          
+            <td class="">{{ template_form.date_in.label }}</td>
+            <td class="">{{ template_form.pick_up_location.label }}</td>
+            <td class="">{{ template_form.date_out.label }}</td>
+            <td class="">{{ template_form.destination.label }}</td>
+            <td class="">{{ template_form.remarks.label }}</td>
         </tr>
         <tr> 
-            <td>{{ template_form.name() }}</td>
-            <td>{{ template_form.status() }}</td>
-            <td>{{ template_form.date_in() }}</td>
-            <td>{{ template_form.pick_up_location() }}</td>
-            <td>{{ template_form.date_out() }}</td>
-            <td>{{ template_form.destination() }}</td>
-            <td>{{ template_form.remarks() }}</td>
+            <td class="p-2">{{ template_form.name(class="w-full border border-blue-400 px-2") }}</td>
+            <td class="p-2">{{ template_form.status(class="w-full border border-blue-400 px-2") }}</td>
+            <td class="p-2">{{ template_form.date_in(class="w-full border border-blue-400 px-2") }}</td>
+            <td class="p-2">{{ template_form.pick_up_location(class="w-full border border-blue-400 px-2") }}</td>
+            <td class="p-2">{{ template_form.date_out(class="w-full border border-blue-400 px-2") }}</td>
+            <td class="p-2">{{ template_form.destination(class="w-full border border-blue-400 px-2") }}</td>
+            <td class="p-2">{{ template_form.remarks(class="w-full border border-blue-400 px-2") }}</td>
         </tr>       
-        <tr class="button">
-            <td colspan="7"><input id="submit" name="submit" type="submit" value="{{ 'Wijzig' if edit else 'Toevoegen' }}"></td>
+        <tr>
+            <td colspan="7" class="p-2"><input class="button" id="submit" name="submit" type="submit" value="{{ 'Wijzig' if edit else 'Toevoegen' }}"></td>
         </tr>
     </form>
 </table>      
+
+</div>
 
 {% endblock %}
