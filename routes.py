@@ -11,14 +11,14 @@ from flask_login import login_user, current_user, logout_user, login_required
 @login_required
 def showAll():
     all_arctic_suns = ArcticSun.query.all()
-    return render_template("index.html", template_form=Input(), all_arctic_suns=all_arctic_suns)
+    return render_template("arcticsun/index.html", template_form=Input(), all_arctic_suns=all_arctic_suns)
 
 
 @app.route('/', methods=["GET"])
 @login_required
-def index():
+def arcticsun_index():
     all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None)
-    return render_template("index.html", template_form=Input(), all_arctic_suns=all_arctic_suns)
+    return render_template("arcticsun/index.html", template_form=Input(), all_arctic_suns=all_arctic_suns)
 
 
 @app.route('/add', methods=["POST"])
@@ -36,7 +36,7 @@ def add():
             remarks=form.remarks.data)
         db.session.add(arctic_sun)
         db.session.commit()
-    return redirect(url_for('index'))    
+    return redirect(url_for('arcticsun_index'))    
 
 
 
@@ -46,7 +46,7 @@ def delete():
     item_to_delete = ArcticSun.query.filter_by(id=request.form['id']).first()
     db.session.delete(item_to_delete)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('arcticsun_index'))
 
 
 @app.route('/change/<int:id>', methods=['GET','POST'])
@@ -65,8 +65,8 @@ def change(id):
         item_to_change.status=form.status.data
         item_to_change.remarks=form.remarks.data
         db.session.commit()
-        return redirect(url_for('index'))
-    return render_template("index.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id)
+        return redirect(url_for('arcticsun_index'))
+    return render_template("arcticsun/index.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -81,20 +81,20 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash("Your account has been created! You are now able to log in.", "succes")
-        return redirect(url_for("index"))
+        return redirect(url_for("arcticsun_index"))
     return render_template("register.html", title="Register", form=form)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        return redirect(url_for("arcticsun_index"))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get("next")
-            return redirect(next_page) if next_page else redirect(url_for('index'))
+            return redirect(next_page) if next_page else redirect(url_for('arcticsun_index'))
         else:
             flash("Login Unsuccessful. Please check email and password.", "danger")
     return render_template("login.html", form=form)
