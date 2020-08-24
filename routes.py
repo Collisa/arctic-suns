@@ -71,8 +71,6 @@ def change(id):
 @app.route("/register", methods=["GET", "POST"])
 @login_required
 def register():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for("index"))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_pw = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
@@ -81,7 +79,7 @@ def register():
         db.session.commit()
         flash("Your account has been created! You are now able to log in.", "succes")
         return redirect(url_for("arcticsun_index"))
-    return render_template("register.html", title="Register", form=form)
+    return render_template("authentication/register.html", title="Register", form=form)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -96,7 +94,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('arcticsun_index'))
         else:
             flash("Login Unsuccessful. Please check email and password.", "danger")
-    return render_template("login.html", form=form)
+    return render_template("authentication/login.html", form=form)
 
 @app.route("/logout")
 @login_required
