@@ -27,6 +27,11 @@
 
 {% include 'components/flash_messages.html' %}
 
+<style>
+table.dataTable, table.dataTable th, table.dataTable td {
+    box-sizing: border-box;
+}
+</style>
 
 
 <!--Tabel weergave-->
@@ -67,49 +72,49 @@
                 {% else %}
                     <td></td>
                 {% endif%}
-                <td>
-                    <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
-                        <input class="btn btn-indigo py-1" type="submit" value="Wijzig"></form>
-                    <form action="{{ url_for('delete') }}" method="POST" class="inline">
-                        <input type="hidden" value="{{ arctic.id }}" name="id">
-                        <input class="btn btn-indigo py-1" type="submit" value="X" name="delete"></form>
-                </td>
+                    <td>
+                        <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
+                            <input class="btn btn-indigo py-1" type="submit" value="Wijzig"></form>
+                        <form action="{{ url_for('delete') }}" method="POST" class="inline">
+                            <input type="hidden" value="{{ arctic.id }}" name="id">
+                            <input class="btn btn-indigo py-1" type="submit" value="X" name="delete"></form>
+                    </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
 
-<table class="w-full text-center bg-indigo-100 mt-4">
-    {% if edit == True %}
-    <form action="{{ url_for('change', id=edit_id) }}" method="POST">
-    {% else %}
-    <form action="{{ url_for('add') }}" method="POST">
-    {% endif %}
-        {{ template_form.hidden_tag() }}
-        <tr class="border-4 border-indigo-600 font-bold bg-indigo-200">
-            <td class="w-1/8">{{ template_form.name.label }}</td>
-            <td class="w-1/8">{{ template_form.status.label }}</td>          
-            <td class="">{{ template_form.date_in.label }}</td>
-            <td class="">{{ template_form.pick_up_location.label }}</td>
-            <td class="">{{ template_form.date_out.label }}</td>
-            <td class="">{{ template_form.destination.label }}</td>
-            <td class="">{{ template_form.remarks.label }}</td>
-        </tr>
-        <tr> 
-            <td class="p-2">{{ template_form.name(class="w-full border border-indigo-400 px-2") }}</td>
-            <td class="p-2">{{ template_form.status(class="w-full border border-indigo-400 px-2") }}</td>
-            <td class="p-2">{{ template_form.date_in(class="w-full border border-indigo-400 px-2 text-center") }}</td>
-            <td class="p-2">{{ template_form.pick_up_location(class="w-full border border-indigo-400 px-2") }}</td>
-            <td class="p-2">{{ template_form.date_out(class="w-full border border-indigo-400 px-2 text-center") }}</td>
-            <td class="p-2">{{ template_form.destination(class="w-full border border-indigo-400 px-2") }}</td>
-            <td class="p-2">{{ template_form.remarks(class="w-full border border-indigo-400 px-2") }}</td>
-        </tr>       
-        <tr>
-            <td colspan="7" class="p-2"><input class="btn btn-indigo" id="submit" name="submit" type="submit" value="{{ 'Wijzig' if edit else 'Toevoegen' }}"></td>
-        </tr>
-    </form>
-</table>      
+    <table class="text-center bg-indigo-100 mt-4">
+        {% if edit == True %}
+        <form action="{{ url_for('change', id=edit_id) }}" method="POST">
+        {% else %}
+        <form action="{{ url_for('add') }}" method="POST">
+        {% endif %}
+            {{ template_form.hidden_tag() }}
+            <tr class="border-4 border-indigo-600 font-bold bg-indigo-200">
+                <td class="w-1/8">{{ template_form.name.label }}</td>
+                <td class="w-1/8">{{ template_form.status.label }}</td>          
+                <td class="">{{ template_form.date_in.label }}</td>
+                <td class="">{{ template_form.pick_up_location.label }}</td>
+                <td class="">{{ template_form.date_out.label }}</td>
+                <td class="">{{ template_form.destination.label }}</td>
+                <td class="">{{ template_form.remarks.label }}</td>
+            </tr>
+            <tr> 
+                <td class="p-2">{{ template_form.name(class="w-full border border-indigo-400 px-2") }}</td>
+                <td class="p-2">{{ template_form.status(class="w-full border border-indigo-400 px-2") }}</td>
+                <td class="p-2">{{ template_form.date_in(class="w-full border border-indigo-400 px-2 text-center") }}</td>
+                <td class="p-2">{{ template_form.pick_up_location(class="w-full border border-indigo-400 px-2") }}</td>
+                <td class="p-2">{{ template_form.date_out(class="w-full border border-indigo-400 px-2 text-center") }}</td>
+                <td class="p-2">{{ template_form.destination(class="w-full border border-indigo-400 px-2") }}</td>
+                <td class="p-2">{{ template_form.remarks(class="w-full border border-indigo-400 px-2") }}</td>
+            </tr>       
+            <tr>
+                <td colspan="7" class="p-2"><input class="btn btn-indigo" id="submit" name="submit" type="submit" value="{{ 'Wijzig' if edit else 'Toevoegen' }}"></td>
+            </tr>
+        </form>
+    </table>      
 
 </div>
 
