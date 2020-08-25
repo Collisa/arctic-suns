@@ -56,4 +56,4 @@ def change_card(id):
         item_to_change.chauffeur=form.chauffeur.data
         db.session.commit()
         return redirect(url_for('kaart_index'))
-    return render_template("kaart/index.html", template_form=CardForm(obj=item_to_change), all_cards=all_cards, edit=True, edit_id=item_to_change.id)
+    return render_template("kaarten/index.html", template_form=CardForm(obj=item_to_change), all_cards=all_cards, edit=True, edit_id=item_to_change.id)

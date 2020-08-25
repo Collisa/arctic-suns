@@ -2,3 +2,4 @@
 - [ ] bestand maken voor Werkuren en verlof
 - [ ] wachtwoord vergeten 
 - [ ] Catherine een view-only account bezorgen?
+- [ ] modal knop op verwijder-lijn knop
