@@ -52,7 +52,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
         </thead>
         <tbody>
         {% for arctic in all_arctic_suns %}
-            <tr class="odd:bg-indigo-100">
+            <tr class="odd:bg-indigo-100" data-id="{{ arctic.id }}">
                     <td>{{ arctic.name }}</td>
                     <td>{{ arctic.status }}</td>
                 {% if arctic.date_in %}
@@ -75,15 +75,26 @@ table.dataTable, table.dataTable th, table.dataTable td {
                     <td>
                         <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
                             <input class="btn btn-indigo py-1" type="submit" value="Wijzig"></form>
-                        <form action="{{ url_for('delete') }}" method="POST" class="inline">
+                        <!-- <form action="{{ url_for('delete') }}" method="POST" class="inline">
                             <input type="hidden" value="{{ arctic.id }}" name="id">
-                            <input class="btn btn-indigo py-1" type="submit" value="X" name="delete"></form>
+                            <input id="show-modal" class="btn btn-indigo py-1" type="submit" value="X" name="delete"></form> -->
+                            <button class="btn btn-indigo py-1" onclick="showModal({{ arctic.id }})">X</button>
                     </td>
             </tr>
+
+
+            {% include 'components/modal.html' %}
+
+
         {% endfor %}
         </tbody>
     </table>
 
+    <script>
+
+        const deleteURL = '{{ url_for('delete') }}';
+
+    </script>
 
     <table class="text-center bg-indigo-100 mt-4">
         {% if edit == True %}

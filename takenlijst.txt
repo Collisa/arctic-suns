@@ -1,4 +1,3 @@
-- [ ] bestand maken voor Kaarten
 - [ ] bestand maken voor Werkuren en verlof
 - [ ] wachtwoord vergeten 
 - [ ] Catherine een view-only account bezorgen?
