@@ -50,7 +50,7 @@
         </thead>
         <tbody>
         {% for card in all_cards %}
-            <tr class="odd:bg-indigo-100">
+            <tr class="odd:bg-indigo-100" data-id="{{ card.id }}">
                     <td>{{ card.card }}</td>
                     <td>{{ card.chauffeur }}</td>
                 {% if card.date_out %}
@@ -66,14 +66,26 @@
                     <td>
                         <form action="{{ url_for('change_card', id=card.id) }}" method="GET" class="inline">
                             <input class="btn btn-indigo py-1" type="submit" value="Wijzig"></form>
-                        <form action="{{ url_for('delete_card') }}" method="POST" class="inline">
+                        <!-- <form action="{{ url_for('delete_card') }}" method="POST" class="inline">
                             <input type="hidden" value="{{ card.id }}" name="id">
-                            <input class="btn btn-indigo py-1" type="submit" value="X" name="delete"></form>
-                    </td>
+                            <input class="btn btn-indigo py-1" type="submit" value="X" name="delete"></form> -->
+                        <button class="btn btn-indigo py-1" onclick="showModal({{ card.id }})">X</button>
+                        </td>
             </tr>
+
+            {% include 'components/modal.html' %}
+
+
         {% endfor %}
         </tbody>
     </table>
+
+
+    <script>
+
+        const deleteURL = '{{ url_for('delete_card') }}';
+
+    </script>
 
 
     <!-- form table -->

@@ -46,7 +46,7 @@ def delete():
     item_to_delete = ArcticSun.query.filter_by(id=request.form['id']).first()
     db.session.delete(item_to_delete)
     db.session.commit()
-    return redirect(url_for('arcticsun_index'))
+    return ""
 
 
 @app.route('/change/<int:id>', methods=['GET','POST'])

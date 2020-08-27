@@ -40,8 +40,7 @@ def delete_card():
     item_to_delete = Card.query.filter_by(id=request.form['id']).first()
     db.session.delete(item_to_delete)
     db.session.commit()
-    return redirect(url_for('kaart_index'))
-
+    return ""
 
 @app.route('/kaart/change/<int:id>', methods=['GET','POST'])
 @login_required
