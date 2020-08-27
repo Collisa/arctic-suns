@@ -14,7 +14,7 @@ def showAll():
     return render_template("arcticsun/index.html", template_form=Input(), all_arctic_suns=all_arctic_suns)
 
 
-@app.route('/', methods=["GET"])
+@app.route('/index', methods=["GET"])
 @login_required
 def arcticsun_index():
     all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None)
@@ -81,6 +81,7 @@ def register():
         return redirect(url_for("arcticsun_index"))
     return render_template("authentication/register.html", title="Register", form=form)
 
+@app.route("/", methods=["GET", "POST"])
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
