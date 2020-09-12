@@ -22,4 +22,5 @@ app.register_blueprint(usersbp)
  
 from routes import *
 from kaarten.routes import *
+from hours.routes import *
 

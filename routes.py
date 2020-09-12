@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db, bcrypt
 from models import ArcticSun
-from forms import Input
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, Input
 from models import User
 from flask_login import login_user, current_user, logout_user, login_required
 
