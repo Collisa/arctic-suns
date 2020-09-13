@@ -19,7 +19,8 @@ login_manager.login_message_category = "info"
 
 from commands import usersbp
 app.register_blueprint(usersbp)
- 
-from routes import *
+
+from authentication.routes import * 
+from toestellen.routes import *
 from kaarten.routes import *
 

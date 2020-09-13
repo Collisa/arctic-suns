@@ -1,6 +1,6 @@
 import click
 from flask import Blueprint
-from models import User
+from authentication.models import User
 from app import bcrypt, db
 
 usersbp = Blueprint('users', __name__)

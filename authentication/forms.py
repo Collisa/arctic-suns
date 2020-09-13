@@ -1,22 +1,7 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
-from flask_login import current_user
-from wtforms.fields.html5 import DateField
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from models import User
-
-
-
-class Input(FlaskForm):
-    name = StringField("Arctic sun SN")
-    date_in = DateField("Afhaling")
-    date_out = DateField("Levering")
-    pick_up_location = TextAreaField("Afhaallocatie")
-    destination = TextAreaField("Leverlocatie")
-    status = SelectField("Status", choices=["Gerepareerd", "Loaner", "Defect"])
-    submit = SubmitField("Toevoegen")
-    remarks = TextAreaField("Opmerkingen")
+from authentication.models import User
 
 
 class RegistrationForm(FlaskForm):
