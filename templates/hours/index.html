@@ -48,7 +48,7 @@
                         <input type="hidden" name="person_id" value="{{ person_id }}">
                         <!-- links boven vak -->
                         <div class="">
-                            <div class="w-3/4 m-auto text-center text-indigo-900 rounded-md py-3 bg-indigo-200 my-4">
+                            <div class="w-3/4 m-auto text-center text-indigo-900 rounded-md py-3 bg-indigo-200 mb-4 mt-6">
                                 {{ template_form.hidden_tag() }}
                                 {{ template_form.workday.label }}
                                 {{ template_form.workday(class="w-36 text-center ml-4 text-indigo-900 rounded-md") }}
@@ -76,16 +76,45 @@
 
                     <div class="flex-1">
                         <!-- midden boven vak -->
-
-                        {{ person_name }}
-
-                        overuren deze week, deze maand en totaal
+                        <div class="border-8 border-indigo-900 mx-1.5 rounded-md h-full">
+                            <div class="w-3/4 m-auto text-center text-white font-bold rounded-md py-3 bg-indigo-800 mb-4 mt-6">
+                                Overuren
+                            </div>
+                            <div class="w-3/4 m-auto text-center text-indigo-900 rounded-md py-3 bg-indigo-200 my-4">
+                                Week: {{ extrahours_week }} uren
+                            </div>
+                            <div class="w-3/4 m-auto text-center text-indigo-900 rounded-md py-3 bg-indigo-200 my-4">
+                                Maand: {{ extrahours_month }} uren
+                            </div>
+                            <div class="w-3/4 m-auto text-center text-indigo-900 rounded-md py-3 bg-indigo-200 my-4">
+                                Jaar: {{ extrahours_year }} uren
+                            </div>
+                              
+                        </div>
 
                     </div>
                     <div class="flex-1">
                         <!-- rechts boven vak -->
 
-                        verlofdagen totaal en resterend
+                        <div class="border-8 border-indigo-900 rounded-md">
+                            <div class="w-3/4 border-4 border-indigo-900 rounded-md m-auto my-5">
+                                <div class="box-content text-center text-white font-bold rounded-md py-3 bg-indigo-800 m-1">
+                                    Opgenomen verlof
+                                </div>
+                                <div class="box-content text-center text-indigo-900 rounded-md py-3 bg-indigo-300 m-1">
+                                    /
+                                </div>
+                            </div>
+                            <div class="w-3/4 border-4 border-indigo-900 rounded-md m-auto my-5">
+                                <div class="box-content text-center text-white font-bold rounded-md py-3 bg-indigo-800 m-1">
+                                    Totaal te nemen verlof
+                                </div>
+                                <div class="box-content text-center text-indigo-900 rounded-md py-3 bg-indigo-300 m-1">
+                                    {{ days_off }}
+                                </div>
+                            </div>
+                              
+                        </div>
 
                     </div>
                 </div>
@@ -99,7 +128,7 @@
 
                     <div class="flex-initial w-1/6">
 
-                        testtekst
+                        knop -> maandoverzicht
 
                     </div>
                     <div class="flex-1 w-4/6">
@@ -143,22 +172,6 @@
 
     </div>
 </div>
-
-<!-- 
-                                <p>Resterende verlofdagen</p>
-                     
-                                <p>{{ days_off }}</p>
-
-                                <p>Totaal aantal verlofdagen</p>
-
-                                <p>21</p>
-
--->
-
-
-
-
-
 
         
 {% endblock %}

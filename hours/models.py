@@ -1,5 +1,6 @@
 from app import db
 
+
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     person_id = db.Column(db.Integer, nullable=False)
@@ -8,4 +9,4 @@ class Employee(db.Model):
     end_hour = db.Column(db.Time)
     type_day = db.Column(db.String(20))
     total_leave_days = db.Column(db.Integer)
-    extra_hours = db.Column(db.String(50))
+    extra_hours = db.Column(db.Integer)
