@@ -10,3 +10,6 @@ class Employee(db.Model):
     type_day = db.Column(db.String(20))
     total_leave_days = db.Column(db.Integer)
     extra_hours = db.Column(db.Integer)
+    __table_args__ = (
+        db.UniqueConstraint('person_id', 'workday', name='unique_personid_workday'),
+    )

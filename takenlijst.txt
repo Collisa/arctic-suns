@@ -1,4 +1,8 @@
-- [ ] bestand maken voor Werkuren en verlof
+- [ ] dubbele werkuren ingeven onmogelijk maken
+- [ ] totaal verlof te nemen aanpasbaar maken
+- [ ] uren editable maken
+- [ ] knop naar maandoverzicht maken
+- [ ] maandoverzicht maken
+- [ ] weekoverzicht aanduiden welke week het nu is
 - [ ] wachtwoord vergeten 
 - [ ] Catherine een view-only account bezorgen?
-- [ ] modal knop op verwijder-lijn knop

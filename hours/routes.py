@@ -6,6 +6,7 @@ import calendar
 from hours.forms import HoursForm, PersonForm
 from hours.models import Employee
 from hours.extrahours_calculation import calculate_extrahours_week, calculate_extrahours_month, calculate_extrahours_year, calculate_month_view
+from hours.weekly_view import get_weekly_view_days
 
 total_leave_days = 0
 
@@ -16,12 +17,19 @@ def hours_index():
     days_off = 21
     year, month = calculate_month_view()
     month_view = calendar.month(year, month)
-    all_employees = Employee.query.all()
     person_id = request.args.get('person_id', '1')
-    extrahours_week = calculate_extrahours_week(person_id)
-    extrahours_month = calculate_extrahours_month(person_id)
-    extrahours_year = calculate_extrahours_year(person_id)
-    return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), all_employees=all_employees, person_id=person_id, extrahours_week=extrahours_week, extrahours_month=extrahours_month, extrahours_year=extrahours_year, month_view=month_view)
+
+    extrahours_year, leavedays = calculate_extrahours_year(person_id)
+
+    data = {
+        'extrahours_week': calculate_extrahours_week(person_id),
+        'extrahours_month': calculate_extrahours_month(person_id),
+        'extrahours_year': extrahours_year,
+        'leavedays': leavedays,
+        'weeklyview_days': get_weekly_view_days(person_id)
+    }
+
+    return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view)
 
 
 # employees = [{id: 1, name: "Lisa"}, {id: 2, name: "Elio"}]
@@ -35,8 +43,7 @@ def hours_add():
     extra_hours = None
 
     if hour_form.end_hour.data:
-        extra_hours = datetime.combine(date.today(
-        ), hour_form.end_hour.data) - datetime.combine(date.today(), hour_form.start_hour.data)
+        extra_hours = datetime.combine(date.today(), hour_form.end_hour.data) - datetime.combine(date.today(), hour_form.start_hour.data)
         extra_hours = extra_hours - timedelta(hours=8)
         extra_hours = int(extra_hours.total_seconds() / 60)
 
