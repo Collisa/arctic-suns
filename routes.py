@@ -53,8 +53,8 @@ def delete():
 def change(id):
     all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None)
     item_to_change = ArcticSun.query.get(id)
-    form = Input(request.form)
     if request.method == 'POST':
+        form = Input(request.form)
         item_to_change.name=form.name.data
         item_to_change.date_in=form.date_in.data
         item_to_change.date_out=form.date_out.data

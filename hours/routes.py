@@ -2,21 +2,25 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db
 from flask_login import login_required
 from datetime import date, datetime, timedelta
+from sqlalchemy.exc import IntegrityError
 import calendar
 from hours.forms import HoursForm, PersonForm
 from hours.models import Employee
 from hours.extrahours_calculation import calculate_extrahours_week, calculate_extrahours_month, calculate_extrahours_year, calculate_month_view
 from hours.weekly_view import get_weekly_view_days
-
-total_leave_days = 0
+import locale
+import copy
 
 
 @app.route('/hours', methods=["GET"])
 @login_required
 def hours_index():
     days_off = 21
+    
     year, month = calculate_month_view()
+    locale.setlocale(locale.LC_ALL, 'nl_NL')
     month_view = calendar.month(year, month)
+
     person_id = request.args.get('person_id', '1')
 
     extrahours_year, leavedays = calculate_extrahours_year(person_id)
@@ -32,14 +36,12 @@ def hours_index():
     return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view)
 
 
-# employees = [{id: 1, name: "Lisa"}, {id: 2, name: "Elio"}]
-
 
 @app.route('/hours/add', methods=["POST"])
 @login_required
 def hours_add():
     hour_form = HoursForm(request.form)
-
+    
     extra_hours = None
 
     if hour_form.end_hour.data:
@@ -47,16 +49,59 @@ def hours_add():
         extra_hours = extra_hours - timedelta(hours=8)
         extra_hours = int(extra_hours.total_seconds() / 60)
 
-    day = Employee(
-        person_id=hour_form.person_id.data,
-        workday=hour_form.workday.data,
-        start_hour=hour_form.start_hour.data,
-        end_hour=hour_form.end_hour.data,
-        type_day=hour_form.type_day.data,
-        total_leave_days=total_leave_days +
-        1 if hour_form.type_day.data == "verlof" else total_leave_days,
-        extra_hours=extra_hours)
-    db.session.add(day)
-    db.session.commit()
+    try:
+        day = Employee(
+            person_id=hour_form.person_id.data,
+            workday=hour_form.workday.data,
+            start_hour=hour_form.start_hour.data,
+            end_hour=hour_form.end_hour.data,
+            type_day=hour_form.type_day.data,
+            total_leave_days= 1 if hour_form.type_day.data == "verlof" else 0,
+            extra_hours=extra_hours)
+        db.session.add(day)
+        db.session.commit()
+    
+    except IntegrityError:
+        return redirect(url_for('hours_edit', datum=day.workday, id=day.person_id, type_day=day.type_day, start_hour=day.start_hour, end_hour=day.end_hour))
 
     return redirect(url_for('hours_index'))
+
+@app.route('/hours/edit/<int:id>/<datum>/', methods=["GET", "POST"])
+@login_required
+def hours_edit(id, datum):
+    item_to_change = Employee.query.filter(Employee.person_id == id, Employee.workday == datum).first()
+
+    extra_hours = None
+
+    if request.method == "POST":
+        form = HoursForm(request.form)
+        
+        if form.end_hour.data:
+            
+            extra_hours = datetime.combine(date.today(), form.end_hour.data) - datetime.combine(date.today(), form.start_hour.data)
+            extra_hours = extra_hours - timedelta(hours=8)
+            extra_hours = int(extra_hours.total_seconds() / 60) 
+
+        item_to_change.person_id=id
+        item_to_change.workday=form.workday.data
+        item_to_change.start_hour=form.start_hour.data
+        item_to_change.end_hour=form.end_hour.data
+        item_to_change.type_day=form.type_day.data
+        item_to_change.total_leave_days=1 if form.type_day.data == "verlof" else 0
+        item_to_change.extra_hours=extra_hours
+
+        db.session.commit()
+
+        return redirect(url_for('hours_index'))
+
+
+    item_to_change2 = copy.deepcopy(item_to_change)
+    if(request.args.get('start_hour')):
+        item_to_change2.start_hour=datetime.strptime(request.args.get('start_hour'), '%H:%M:%S')
+
+    if(request.args.get('end_hour')):
+        item_to_change2.end_hour=datetime.strptime(request.args.get('end_hour'), '%H:%M:%S')
+    
+    item_to_change2.type_day=request.args.get('type_day')
+
+    return render_template('hours/edit.html', template_form=HoursForm(obj=item_to_change2), item_to_change=item_to_change, id=id, datum=datum)
