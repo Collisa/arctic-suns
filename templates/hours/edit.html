@@ -95,11 +95,11 @@
 
     </div>
     <div class="text-center">
-        <input class="w-1/8 border-4 border-indigo-900 text-indigo-900 rounded-md py-1 bg-indigo-100 mt-6 mb-4 pointer-events-auto" id="submit" name="submit" type="submit" value="Wijzig">
+        <input class="w-1/8 border-4 border-indigo-900 text-indigo-900 rounded-md py-1 bg-indigo-100 mt-6 mb-4 hover:bg-indigo-600 hover:text-white hover:cursor-pointer hover:border-white" id="submit" name="submit" type="submit" value="Wijzig">
     </div>  
     </form>
 
-    <div class="bg-red-600 inline-block py-2 px-4 rounded-md absolute right-8 top-8 text-white font-bold">
+    <div class="bg-red-600 inline-block py-2 px-4 rounded-md absolute right-8 top-8 text-white font-bold hover:bg-white hover:text-red-600 hover:shadow-outline-red">
         <a href="{{ url_for('hours_index', person_id=id) }}">X</a>
     </div>
     
