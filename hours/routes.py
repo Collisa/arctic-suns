@@ -42,7 +42,7 @@ def hours_index():
 def hours_add():
     hour_form = HoursForm(request.form)
     
-    extra_hours = None
+    extra_hours = 0
 
     if hour_form.end_hour.data:
         extra_hours = datetime.combine(date.today(), hour_form.end_hour.data) - datetime.combine(date.today(), hour_form.start_hour.data)
@@ -64,14 +64,14 @@ def hours_add():
     except IntegrityError:
         return redirect(url_for('hours_edit', datum=day.workday, id=day.person_id, type_day=day.type_day, start_hour=day.start_hour, end_hour=day.end_hour))
 
-    return redirect(url_for('hours_index'))
+    return redirect(url_for('hours_index', person_id=day.person_id))
 
 @app.route('/hours/edit/<int:id>/<datum>/', methods=["GET", "POST"])
 @login_required
 def hours_edit(id, datum):
     item_to_change = Employee.query.filter(Employee.person_id == id, Employee.workday == datum).first()
 
-    extra_hours = None
+    extra_hours = 0
 
     if request.method == "POST":
         form = HoursForm(request.form)
@@ -92,7 +92,7 @@ def hours_edit(id, datum):
 
         db.session.commit()
 
-        return redirect(url_for('hours_index'))
+        return redirect(url_for('hours_index', person_id=id))
 
 
     item_to_change2 = copy.deepcopy(item_to_change)

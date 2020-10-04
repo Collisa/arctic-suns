@@ -10,7 +10,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'c5723c7a0956175ca1e56086adc6bdc18064d2659be3b04fcd3bb89d1fbfe482'
 app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL') or 'sqlite:///arctic_DB2.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db = SQLAlchemy(app, session_options={
+    'expire_on_commit': False
+})
+
 migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
