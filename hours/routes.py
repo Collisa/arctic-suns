@@ -24,13 +24,14 @@ def hours_index():
     person_id = request.args.get('person_id', '1')
 
     extrahours_year, leavedays = calculate_extrahours_year(person_id)
-
+    print(month)
     data = {
         'extrahours_week': calculate_extrahours_week(person_id),
         'extrahours_month': calculate_extrahours_month(person_id),
         'extrahours_year': extrahours_year,
         'leavedays': leavedays,
-        'weeklyview_days': get_weekly_view_days(person_id)
+        'weeklyview_days': get_weekly_view_days(person_id),
+        'month': month
     }
 
     return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view)
@@ -105,3 +106,9 @@ def hours_edit(id, datum):
     item_to_change2.type_day=request.args.get('type_day')
 
     return render_template('hours/edit.html', template_form=HoursForm(obj=item_to_change2), item_to_change=item_to_change, id=id, datum=datum)
+
+
+@app.route('/hours/month/<int:id>/<int:month>')
+@login_required
+def month_view(id, month):
+    return render_template('hours/month-view.html', id=id)
