@@ -22,7 +22,7 @@ def hours_index():
     days_off = 21
     
     year, month = calculate_month_view()
-    locale.setlocale(locale.LC_ALL, 'nl_NL')
+    locale.setlocale(locale.LC_ALL, 'nl_BE.utf8')
     # month_view = calendar.month(year, month)
     month_view = calendar.TextCalendar().formatmonth(year, month)
 
