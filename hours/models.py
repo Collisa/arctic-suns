@@ -13,3 +13,6 @@ class Employee(db.Model):
     __table_args__ = (
         db.UniqueConstraint('person_id', 'workday', name='unique_personid_workday'),
     )
+
+    def __repr__(self):
+        return f"{self.workday}; {self.type_day}"

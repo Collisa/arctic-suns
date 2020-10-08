@@ -10,6 +10,7 @@ from hours.extrahours_calculation import calculate_extrahours_week, calculate_ex
 from hours.weekly_view import get_weekly_view_days
 import locale
 import copy
+from dateutil.relativedelta import relativedelta
 
 weekDays = ("Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag")
 
@@ -115,14 +116,16 @@ def hours_edit(id, datum):
 @app.route('/hours/month/<int:id>/<int:month>')
 @login_required
 def month_view(id, month):
-    firstdayofmonth = datetime.today().replace(day=1) - timedelta(days=1)
+    firstdayofmonth = datetime.today().replace(month=month, day=1) - timedelta(days=1)
+    print(firstdayofmonth)
 
-    lastdayofmonth = (datetime.today().replace(
-        month=firstdayofmonth.month + 1) - timedelta(days=1))
-
+    lastdayofmonth = (firstdayofmonth.replace(day=1) + relativedelta(months=+2) - timedelta(days=1))
+    print(lastdayofmonth)
     qry = Employee.query.filter(Employee.person_id == id,
                                 Employee.workday.between(firstdayofmonth, lastdayofmonth))
     
-    
+    print(qry)
 
-    return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays, int=int)
+    return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays)
+
+

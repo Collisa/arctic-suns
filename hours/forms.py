@@ -16,5 +16,6 @@ class HoursForm(FlaskForm):
     type_day = SelectField("Type dag", choices=["werkdag", "weekend", "verlof", "feestdag", "recupdag", "technisch werkloos"])
     submit = SubmitField("Toevoegen")
 
+
 class PersonForm(FlaskForm):
     person_id = SelectField("Werknemer", choices=employees)

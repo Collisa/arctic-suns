@@ -73,7 +73,7 @@
                         <td></td>
                         <td></td>
                     </tr>
-                {% else %}
+                {% elif line.type_day == "werkdag" %}
                     <tr class="odd:bg-indigo-100">
                         <td>{{ weekDays[line.workday.weekday()] }}</td>
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
