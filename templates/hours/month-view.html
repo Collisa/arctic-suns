@@ -6,7 +6,7 @@
 
 
 <!--Hoofding-->
-<header class="w-full mx-auto mt-20">
+<header class="w-11/12 mx-auto mt-20 mb-1">
     <div class="flex items-baseline">
         <div class="flex-1">
             
@@ -15,12 +15,12 @@
             <h1 class="font-bold text-4xl">Werkuren</h1>
         </div>
         <div class="flex-1 text-right">
-            
+            <a href="{{ url_for('hours_index', person_id=id) }}" class="bg-indigo-600 hover:bg-indigo-900 focus:shadow-outline rounded-md p-2 text-white font-bold">Terug</a>
         </div>
     </div>
 </header>
 
-<div class="text-center bg-indigo-900 rounded-md w-3/4 mx-auto p-2">
+<div class="text-center bg-indigo-900 rounded-md w-11/12 mx-auto p-2">
     <table class="w-full text-center">
         <thead class="">
             <tr class="table-header bg-indigo-500 text-white">
