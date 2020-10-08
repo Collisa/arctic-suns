@@ -11,6 +11,9 @@ from hours.weekly_view import get_weekly_view_days
 import locale
 import copy
 
+weekDays = ("Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag")
+
+
 
 @app.route('/hours', methods=["GET"])
 @login_required
@@ -19,12 +22,13 @@ def hours_index():
     
     year, month = calculate_month_view()
     locale.setlocale(locale.LC_ALL, 'nl_NL')
-    month_view = calendar.month(year, month)
+    # month_view = calendar.month(year, month)
+    month_view = calendar.TextCalendar().formatmonth(year, month)
 
     person_id = request.args.get('person_id', '1')
 
     extrahours_year, leavedays = calculate_extrahours_year(person_id)
-    print(month)
+    
     data = {
         'extrahours_week': calculate_extrahours_week(person_id),
         'extrahours_month': calculate_extrahours_month(person_id),
@@ -111,4 +115,14 @@ def hours_edit(id, datum):
 @app.route('/hours/month/<int:id>/<int:month>')
 @login_required
 def month_view(id, month):
-    return render_template('hours/month-view.html', id=id)
+    firstdayofmonth = datetime.today().replace(day=1) - timedelta(days=1)
+
+    lastdayofmonth = (datetime.today().replace(
+        month=firstdayofmonth.month + 1) - timedelta(days=1))
+
+    qry = Employee.query.filter(Employee.person_id == id,
+                                Employee.workday.between(firstdayofmonth, lastdayofmonth))
+    
+    
+
+    return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays, int=int)

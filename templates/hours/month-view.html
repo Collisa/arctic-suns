@@ -6,7 +6,7 @@
 
 
 <!--Hoofding-->
-<header class="w-full mx-auto mt-8">
+<header class="w-full mx-auto mt-20">
     <div class="flex items-baseline">
         <div class="flex-1">
             
@@ -20,7 +20,72 @@
     </div>
 </header>
 
-
+<div class="text-center bg-indigo-900 rounded-md w-3/4 mx-auto p-2">
+    <table class="w-full text-center">
+        <thead class="">
+            <tr class="table-header bg-indigo-500 text-white">
+                <th class="w-1/5 text-xl">Dag</th>
+                <th class="w-1/5 text-xl">Datum</th>
+                <th class="w-1/5 text-xl">Type</th>
+                <th class="w-1/5 text-xl">Werkuren</th>
+                <th class="w-1/5 text-xl">Overuren</th>
+            </tr>
+        </thead>
+        <tbody class="text-indigo-900 bg-indigo-200">
+            {% for line in qry %}
+                {% if line.type_day == "weekend" %}
+                    <tr class="bg-indigo-500 text-white">
+                        <td>{{ weekDays[line.workday.weekday()] }}</td>
+                        <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ line.type_day }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% elif line.type_day == "verlof" %}
+                    <tr class="bg-orange-400 text-indigo-900">
+                        <td>{{ weekDays[line.workday.weekday()] }}</td>
+                        <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ line.type_day }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% elif line.type_day == "feestdag" %}
+                    <tr class="bg-yellow-400 text-indigo-900">
+                        <td>{{ weekDays[line.workday.weekday()] }}</td>
+                        <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ line.type_day }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% elif line.type_day == "recupdag" %}
+                    <tr class="bg-white text-red-600">
+                        <td>{{ weekDays[line.workday.weekday()] }}</td>
+                        <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ line.type_day }}</td>
+                        <td></td>
+                        <td> -8.0 </td>
+                    </tr>
+                {% elif line.type_day == "technisch werkloos" %}
+                    <tr class="bg-purple-400 text-indigo-900">
+                        <td>{{ weekDays[line.workday.weekday()] }}</td>
+                        <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ line.type_day }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% else %}
+                    <tr class="odd:bg-indigo-100">
+                        <td>{{ weekDays[line.workday.weekday()] }}</td>
+                        <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ line.type_day }}</td>
+                        <td>{{ line.start_hour }} - {{ line.end_hour }}</td>
+                        <td>{{ line.extra_hours / 60 }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}    
+        </tbody>
+    </table>
+</div>
 
 
 {% endblock %}

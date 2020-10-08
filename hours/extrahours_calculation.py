@@ -8,7 +8,7 @@ import calendar
 def calculate_extrahours_week(employee_id):
     extra_hours = 0
     firstdayofweek = datetime.today(
-    ) - timedelta(days=(datetime.today().weekday() % 7))
+    ) - timedelta(days=(datetime.today().weekday() % 7) + 1)
 
     lastdayofweek = datetime.today(
     ) + timedelta(days=6 - (datetime.today().weekday() % 7))
@@ -29,7 +29,8 @@ def calculate_extrahours_week(employee_id):
 def calculate_extrahours_month(employee_id):
     extra_hours = 0
 
-    firstdayofmonth = datetime.today().replace(day=1)
+    firstdayofmonth = datetime.today().replace(day=1) - timedelta(days=1)
+
 
     lastdayofmonth = (datetime.today().replace(
         month=firstdayofmonth.month + 1) - timedelta(days=1))
@@ -51,7 +52,8 @@ def calculate_extrahours_year(employee_id):
     extra_hours = 0
     leave_days = 0
 
-    firstdayofyear = datetime.today().replace(month=1, day=1)
+    firstdayofyear = datetime.today().replace(month=1, day=1) - timedelta(days=1)
+
 
     lastdayofyear = datetime.today().replace(month=12, day=31)
 
