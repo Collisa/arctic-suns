@@ -1,6 +1,6 @@
 from datetime import date, datetime, timedelta
 from hours.models import Employee
-from models import ArcticSun
+from toestellen.models import ArcticSun
 from app import db
 import calendar
 
