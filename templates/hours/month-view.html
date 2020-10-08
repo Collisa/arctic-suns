@@ -23,7 +23,7 @@
 <div class="text-center bg-indigo-900 rounded-md w-11/12 mx-auto p-2">
     <table class="w-full text-center">
         <thead class="">
-            <tr class="table-header bg-indigo-500 text-white">
+            <tr class="table-header bg-indigo-900 text-white">
                 <th class="w-1/5 text-xl">Dag</th>
                 <th class="w-1/5 text-xl">Datum</th>
                 <th class="w-1/5 text-xl">Type</th>
@@ -34,7 +34,7 @@
         <tbody class="text-indigo-900 bg-indigo-200">
             {% for line in qry %}
                 {% if line.type_day == "weekend" %}
-                    <tr class="bg-indigo-500 text-white">
+                    <tr class="bg-indigo-900 text-white">
                         <td>{{ weekDays[line.workday.weekday()] }}</td>
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>{{ line.type_day }}</td>
