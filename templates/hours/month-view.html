@@ -78,7 +78,7 @@
                         <td>{{ weekDays[line.workday.weekday()] }}</td>
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>{{ line.type_day }}</td>
-                        <td>{{ line.start_hour }} - {{ line.end_hour }}</td>
+                        <td>{{ line.start_hour.strftime('%H:%M') }} - {{ line.end_hour.strftime('%H:%M') }}</td>
                         <td>{{ line.extra_hours / 60 }}</td>
                     </tr>
                 {% endif %}
