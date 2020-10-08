@@ -31,8 +31,10 @@ flask run
 
 ## Database migraties
 
+* generate migration: ```flask db migrate -m "Text about migration"```
 * lokaal: ```flask db upgrade```
 * online: ```heroku run flask db upgrade```
+* online met export: ```heroku run  "export LC_ALL=C.UTF-8; export LANG=C.UTF-8; flask db upgrade"```
 
 ## (1ste) Gebruiker toevoegen
 * lokaal: flask users create gebruikersnaam emailadres wachtwoord
