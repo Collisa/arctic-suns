@@ -118,10 +118,9 @@ def hours_edit(id, datum):
 @login_required
 def month_view(id, month):
     firstdayofmonth = datetime.today().replace(month=month, day=1) - timedelta(days=1)
-    print(firstdayofmonth)
 
     lastdayofmonth = (firstdayofmonth.replace(day=1) + relativedelta(months=+2) - timedelta(days=1))
-    print(lastdayofmonth)
+
     qry = Employee.query.filter(Employee.person_id == id,
                                 Employee.workday.between(firstdayofmonth, lastdayofmonth)).order_by(Employee.workday.asc())
 
