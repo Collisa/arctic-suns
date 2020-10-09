@@ -3,6 +3,7 @@ from app import app, db
 from flask_login import login_required
 from datetime import date, datetime, timedelta
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import asc
 import calendar
 from hours.forms import HoursForm, PersonForm
 from hours.models import Employee
@@ -122,9 +123,7 @@ def month_view(id, month):
     lastdayofmonth = (firstdayofmonth.replace(day=1) + relativedelta(months=+2) - timedelta(days=1))
     print(lastdayofmonth)
     qry = Employee.query.filter(Employee.person_id == id,
-                                Employee.workday.between(firstdayofmonth, lastdayofmonth))
-    
-    print(qry)
+                                Employee.workday.between(firstdayofmonth, lastdayofmonth)).order_by(Employee.workday.asc())
 
     return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays)
 
