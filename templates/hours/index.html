@@ -145,7 +145,11 @@
                                         {% for i in range(7) %}
                                             <td class="w-1/8 p-4">
                                                 {% if data.weeklyview_days[i] and data.weeklyview_days[i].type == 'werkdag'  %}
+                                                {% if data.weeklyview_days[i].end %}
                                                     {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - {{ data.weeklyview_days[i].end.strftime('%H:%M') }}
+                                                {% else %}
+                                                    {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - /
+                                                {% endif %}
                                                 {% elif data.weeklyview_days[i] and data.weeklyview_days[i].type == 'verlof' %}
                                                     Verlof
                                                 {% elif data.weeklyview_days[i] and data.weeklyview_days[i].type == 'recupdag' %}
