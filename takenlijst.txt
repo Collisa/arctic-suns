@@ -1,8 +1,8 @@
-- [ ] dubbele werkuren ingeven onmogelijk maken
+- [X] dubbele werkuren ingeven onmogelijk maken
 - [ ] totaal verlof te nemen aanpasbaar maken
-- [ ] uren editable maken
+- [X] uren editable maken
 - [ ] knop naar maandoverzicht maken
-- [ ] maandoverzicht maken
+- [X] maandoverzicht maken
 - [ ] weekoverzicht aanduiden welke week het nu is
 - [ ] wachtwoord vergeten 
-- [ ] Catherine een view-only account bezorgen?
+- [X] Catherine een view-only account bezorgen?
