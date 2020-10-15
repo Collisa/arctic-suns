@@ -2,20 +2,21 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db, bcrypt
 from kaarten.forms import CardForm
 from kaarten.models import Card
-from flask_login import login_required
+from flask_login import login_required, current_user
+from authentication.models import User
 
 @app.route('/kaarten', methods=["GET"])
 @login_required
 def kaart_index():
     all_cards = Card.query.filter(Card.date_retour == None)
-    return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards)
+    return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards, current_user=current_user)
 
 
 @app.route('/kaarten/all', methods=["GET"])
 @login_required
 def kaart_show_all():
     all_cards = Card.query.all()
-    return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards)
+    return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards, current_user=current_user)
 
 
 @app.route('/kaart/add', methods=["POST"])
@@ -55,4 +56,4 @@ def change_card(id):
         item_to_change.chauffeur=form.chauffeur.data
         db.session.commit()
         return redirect(url_for('kaart_index'))
-    return render_template("kaarten/index.html", template_form=CardForm(obj=item_to_change), all_cards=all_cards, edit=True, edit_id=item_to_change.id)
+    return render_template("kaarten/index.html", template_form=CardForm(obj=item_to_change), all_cards=all_cards, edit=True, edit_id=item_to_change.id, current_user=current_user)

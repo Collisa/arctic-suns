@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db
-from flask_login import login_required
+from flask_login import login_required, current_user
+from authentication.models import User
 from datetime import date, datetime, timedelta
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import asc
@@ -40,7 +41,7 @@ def hours_index():
         'month': month
     }
 
-    return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view)
+    return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view, current_user=current_user)
 
 
 
@@ -111,7 +112,7 @@ def hours_edit(id, datum):
     
     item_to_change2.type_day=request.args.get('type_day')
 
-    return render_template('hours/edit.html', template_form=HoursForm(obj=item_to_change2), item_to_change=item_to_change, id=id, datum=datum)
+    return render_template('hours/edit.html', template_form=HoursForm(obj=item_to_change2), item_to_change=item_to_change, id=id, datum=datum, current_user=current_user)
 
 
 @app.route('/hours/month/<int:id>/<int:month>')
@@ -124,6 +125,6 @@ def month_view(id, month):
     qry = Employee.query.filter(Employee.person_id == id,
                                 Employee.workday.between(firstdayofmonth, lastdayofmonth)).order_by(Employee.workday.asc())
 
-    return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays)
+    return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays, current_user=current_user)
 
 

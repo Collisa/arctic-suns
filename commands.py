@@ -9,9 +9,10 @@ usersbp = Blueprint('users', __name__)
 @click.argument('name', nargs=1)
 @click.argument('email', nargs=1)
 @click.argument('password', nargs=1)
-def create(name, email, password):
+@click.argument('firm', nargs=1)
+def create(name, email, password, firm):
     hashed_pw = bcrypt.generate_password_hash(password).decode("utf-8")
-    user = User(username=name, email=email, password=hashed_pw)
+    user = User(username=name, email=email, password=hashed_pw, firm=firm)
     db.session.add(user)
     db.session.commit()
 

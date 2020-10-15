@@ -2,14 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db
 from toestellen.models import ArcticSun
 from toestellen.forms import Input
-from flask_login import login_required
+from flask_login import login_required, current_user
+from authentication.models import User
 
 
 @app.route('/toestellen/<string:device_type>/all', methods=["GET"])
 @login_required
 def showAll(device_type):
     all_arctic_suns = ArcticSun.query.filter(ArcticSun.type == device_type)
-    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type)
+    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user)
 
 
 @app.route('/toestellen', methods=["GET"], defaults={'device_type': None})
@@ -17,7 +18,7 @@ def showAll(device_type):
 @login_required
 def arcticsun_index(device_type):
     all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None, ArcticSun.type == device_type)
-    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type)
+    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user)
 
 
 @app.route('/add', methods=["POST"])
@@ -65,4 +66,4 @@ def change(id):
         item_to_change.remarks=form.remarks.data
         db.session.commit()
         return redirect(url_for('arcticsun_index', device_type=item_to_change.type))
-    return render_template("toestellen/view.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id, device_type=item_to_change.type)
+    return render_template("toestellen/view.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id, device_type=item_to_change.type, current_user=current_user)
