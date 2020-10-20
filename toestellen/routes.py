@@ -24,46 +24,50 @@ def arcticsun_index(device_type):
 @app.route('/add', methods=["POST"])
 @login_required
 def add():
-    form = Input(request.form)
-    if request.method == 'POST':
-        arctic_sun = ArcticSun(
-            name=form.name.data, 
-            date_in=form.date_in.data,
-            date_out=form.date_out.data,
-            pick_up_location=form.pick_up_location.data, 
-            destination=form.destination.data, 
-            status=form.status.data,
-            remarks=form.remarks.data,
-            type=form.type.data)
-        db.session.add(arctic_sun)
-        db.session.commit()
-    return redirect(url_for('arcticsun_index', device_type=form.type.data ))    
+    if current_user.firm == "Collibri":
+        form = Input(request.form)
+        if request.method == 'POST':
+            arctic_sun = ArcticSun(
+                name=form.name.data, 
+                date_in=form.date_in.data,
+                date_out=form.date_out.data,
+                pick_up_location=form.pick_up_location.data, 
+                destination=form.destination.data, 
+                status=form.status.data,
+                remarks=form.remarks.data,
+                type=form.type.data)
+            db.session.add(arctic_sun)
+            db.session.commit()
+        return redirect(url_for('arcticsun_index', device_type=form.type.data ))    
 
 
 
 @app.route('/delete', methods=['POST'])
 @login_required
 def delete():
-    item_to_delete = ArcticSun.query.filter_by(id=request.form['id']).first()
-    db.session.delete(item_to_delete)
-    db.session.commit()
-    return ""
+    if current_user.firm == "Collibri":
+        item_to_delete = ArcticSun.query.filter_by(id=request.form['id']).first()
+        db.session.delete(item_to_delete)
+        db.session.commit()
+        return ""
 
 
 @app.route('/change/<int:id>', methods=['GET','POST'])
 @login_required
 def change(id):
-    item_to_change = ArcticSun.query.get(id)
-    all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None, ArcticSun.type == item_to_change.type)
-    form = Input(request.form)
-    if request.method == 'POST':
-        item_to_change.name=form.name.data
-        item_to_change.date_in=form.date_in.data
-        item_to_change.date_out=form.date_out.data
-        item_to_change.pick_up_location=form.pick_up_location.data
-        item_to_change.destination=form.destination.data
-        item_to_change.status=form.status.data
-        item_to_change.remarks=form.remarks.data
-        db.session.commit()
-        return redirect(url_for('arcticsun_index', device_type=item_to_change.type))
-    return render_template("toestellen/view.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id, device_type=item_to_change.type, current_user=current_user)
+    if current_user.firm == "Collibri":
+        item_to_change = ArcticSun.query.get(id)
+        all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None, ArcticSun.type == item_to_change.type)
+        form = Input(request.form)
+        if request.method == 'POST':
+            item_to_change.name=form.name.data
+            item_to_change.date_in=form.date_in.data
+            item_to_change.date_out=form.date_out.data
+            item_to_change.pick_up_location=form.pick_up_location.data
+            item_to_change.destination=form.destination.data
+            item_to_change.status=form.status.data
+            item_to_change.remarks=form.remarks.data
+            db.session.commit()
+            return redirect(url_for('arcticsun_index', device_type=item_to_change.type))
+        # return render_template("toestellen/view.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit=True, edit_id=item_to_change.id, device_type=item_to_change.type, current_user=current_user)
+        return render_template("toestellen/edit.html", template_form=Input(obj=item_to_change), all_arctic_suns=all_arctic_suns, edit_id=item_to_change.id, device_type=item_to_change.type, item_to_change=item_to_change)

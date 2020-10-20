@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -94,9 +95,6 @@
                 <td>
                     <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
                         <input class="btn btn-indigo py-1" type="submit" value="Wijzig"></form>
-                    <!-- <form action="{{ url_for('delete') }}" method="POST" class="inline">
-                            <input type="hidden" value="{{ arctic.id }}" name="id">
-                            <input id="show-modal" class="btn btn-indigo py-1" type="submit" value="X" name="delete"></form> -->
                     <button class="btn btn-indigo py-1" onclick="showModal({{ arctic.id }})">X</button>
                 </td>
                 {% endif %}
