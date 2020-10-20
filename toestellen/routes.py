@@ -9,16 +9,18 @@ from authentication.models import User
 @app.route('/toestellen/<string:device_type>/all', methods=["GET"])
 @login_required
 def showAll(device_type):
+    at_collibri = False
     all_arctic_suns = ArcticSun.query.filter(ArcticSun.type == device_type)
-    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user)
+    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user, at_collibri=at_collibri)
 
 
 @app.route('/toestellen', methods=["GET"], defaults={'device_type': None})
 @app.route('/toestellen/<string:device_type>', methods=["GET"])
 @login_required
 def arcticsun_index(device_type):
+    at_collibri = True
     all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None, ArcticSun.type == device_type)
-    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user)
+    return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user, at_collibri=at_collibri)
 
 
 @app.route('/add', methods=["POST"])
