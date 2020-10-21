@@ -67,7 +67,10 @@
             {% for arctic in all_arctic_suns %}
             <tr class="odd:bg-indigo-100" data-id="{{ arctic.id }}">
                 <td>{{ arctic.name }}</td>
-                {% if device_type == "kleine_kist" %} {% else %}
+                {% if device_type == "kleine_kist" %} 
+                {% elif arctic.status == "Loaner" %}
+                <td class="font-bold text-orange-500">{{ arctic.status }}</td>
+                {% else %}
                 <td>{{ arctic.status }}</td>
                 {% endif %} 
                 {% if arctic.date_in %}
