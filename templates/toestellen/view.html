@@ -81,7 +81,7 @@
                 <td style="white-space: pre-line" class="text-sm">{{ arctic.pick_up_location }}</td>
                 {% if arctic.date_in and arctic.date_out == None%}
                 <td class="bg-orange-200 text-center">sinds {{ arctic.date_in.strftime('%d/%m/%Y') }} 
-                    {% if arctic.status =="Loaner" %} <p class="font-bold">beschikbaar als Loaner</p>
+                    {% if arctic.status =="Loaner" %} <p class="font-bold text-indigo-900">beschikbaar als Loaner</p>
                 {% endif %}</td>
                 {% else %}
                 <td></td>
