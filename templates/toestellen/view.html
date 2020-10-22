@@ -52,11 +52,11 @@
                 {% if device_type =="kleine_kist" %} {% else %}
                 <th class="w-1/8">Status</th>
                 {% endif %}
-                <th class="w-1/12">Afhaling</th>
-                <th class="w-1/8">Locatie</th>
+                <th class="w-1/12">Afhaaldatum</th>
+                <th class="w-1/8">Afhaaladres</th>
                 <th class="w-1/12 bg-orange-300">bij Collibri</th>
-                <th class="w-1/12">Levering</th>
-                <th class="w-1/8">Locatie</th>
+                <th class="w-1/12">Leverdatum</th>
+                <th class="w-1/8">Bestemming</th>
                 <th class="w-1/8">Opmerking</th>
                 {% if current_user.firm == "Collibri" %}
                 <th class="w-1/8"></th>
@@ -80,7 +80,9 @@
                 {% endif %}
                 <td style="white-space: pre-line" class="text-sm">{{ arctic.pick_up_location }}</td>
                 {% if arctic.date_in and arctic.date_out == None%}
-                <td class="bg-orange-200 text-center">sinds {{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
+                <td class="bg-orange-200 text-center">sinds {{ arctic.date_in.strftime('%d/%m/%Y') }} 
+                    {% if arctic.status =="Loaner" %} <p class="font-bold">beschikbaar als Loaner</p>
+                {% endif %}</td>
                 {% else %}
                 <td></td>
                 {% endif %}
