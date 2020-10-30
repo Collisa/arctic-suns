@@ -24,11 +24,12 @@
     <table class="w-full text-center">
         <thead class="">
             <tr class="table-header bg-indigo-900 text-white">
-                <th class="w-1/5 text-xl">Dag</th>
-                <th class="w-1/5 text-xl">Datum</th>
-                <th class="w-1/5 text-xl">Type</th>
-                <th class="w-1/5 text-xl">Werkuren</th>
-                <th class="w-1/5 text-xl">Overuren</th>
+                <th class="w-1/6 text-xl">Dag</th>
+                <th class="w-1/6 text-xl">Datum</th>
+                <th class="w-1/6 text-xl">Type</th>
+                <th class="w-1/6 text-xl">Werkuren</th>
+                <th class="w-1/6 text-xl">Gewerkt</th>
+                <th class="w-1/6 text-xl">Overuren</th>
             </tr>
         </thead>
         <tbody class="text-indigo-900 bg-indigo-200">
@@ -40,12 +41,14 @@
                         <td>{{ line.type_day }}</td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                 {% elif line.type_day == "verlof" %}
                     <tr class="bg-orange-300 text-indigo-900">
                         <td>{{ weekDays[line.workday.weekday()] }}</td>
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>{{ line.type_day }}</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -56,12 +59,14 @@
                         <td>{{ line.type_day }}</td>
                         <td></td>
                         <td></td>
+                        <td></td>
                     </tr>
                 {% elif line.type_day == "recupdag" %}
                     <tr class="bg-white text-red-600">
                         <td>{{ weekDays[line.workday.weekday()] }}</td>
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>{{ line.type_day }}</td>
+                        <td></td>
                         <td></td>
                         <td> -8.0 </td>
                     </tr>
@@ -70,6 +75,7 @@
                         <td>{{ weekDays[line.workday.weekday()] }}</td>
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>{{ line.type_day }}</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -83,7 +89,16 @@
                         {% else %}
                             <td>{{ line.start_hour.strftime('%H:%M') }} - / </td> 
                         {% endif %}
+                        {% if line.end_hour %}
+                        <td>{{ 8 + (line.extra_hours / 60) }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if line.end_hour %}
                         <td>{{ line.extra_hours / 60 }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
                     </tr>
                 {% endif %}
             {% endfor %}    
