@@ -5,10 +5,8 @@
 <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 
-{% include 'components/navbar.html' %}
-
 <!--Hoofding-->
-<header class="container mx-auto mt-20">
+<header class="container mx-auto pt-20">
     <div class="flex items-baseline">
         <div class="flex-1">
             
@@ -90,7 +88,7 @@
 
     <!-- form table -->
 
-    <table class="w-full text-center bg-indigo-100 mt-4">
+    <table class="w-full text-center bg-indigo-100 mt-2">
         {% if edit == True %}
         <form action="{{ url_for('change_card', id=edit_id) }}" method="POST">
         {% else %}
