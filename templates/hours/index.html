@@ -43,7 +43,7 @@
                     
                     
                         {% if current_user.function == "admin" %}
-                        <div class="flex-1 bg-indigo-900 rounded-md"></div>
+                        <div class="flex-1 bg-indigo-900 rounded-md">
                             <form action="{{ url_for('hours_add') }}" method="POST">
                                 <input type="hidden" name="person_id" value="{{ person_id }}">
                                 <!-- links boven vak -->
