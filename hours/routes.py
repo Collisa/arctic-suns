@@ -48,7 +48,7 @@ def hours_index():
 @app.route('/hours/add', methods=["POST"])
 @login_required
 def hours_add():
-    if current_user.firm == 'Collibri':
+    if current_user.firm == 'Collibri' and current_user.function == "admin":
         hour_form = HoursForm(request.form)
         
         extra_hours = 0
@@ -78,7 +78,7 @@ def hours_add():
 @app.route('/hours/edit/<int:id>/<datum>/', methods=["GET", "POST"])
 @login_required
 def hours_edit(id, datum):
-    if current_user.firm == 'Collibri':
+    if current_user.firm == 'Collibri' and current_user.function == "admin":
         item_to_change = Employee.query.filter(Employee.person_id == id, Employee.workday == datum).first()
 
         extra_hours = 0

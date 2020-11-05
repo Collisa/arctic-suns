@@ -10,6 +10,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField("Paswoord", validators=[DataRequired()])
     confirm_password = PasswordField("Bevestig Paswoord", validators=[DataRequired(), EqualTo("password")])
     firm = SelectField("Firma", choices=[("BARD/BD","BARD/BD"), ("Collibri","Collibri")], validators=[DataRequired()])
+    function = SelectField("Functie", choices=[("BARD", "BARD"), ("werknemer", "werknemer"), ("admin", "admin")], validators=[DataRequired()])
     submit = SubmitField("Registreer")
 
     def validate_username(self, username):

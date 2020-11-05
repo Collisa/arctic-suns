@@ -41,36 +41,41 @@
                 <!-- 3 kolommen in bovenste deel -->
                 <div class="flex flex-row">
                     
-                    <div class="flex-1 bg-indigo-900 rounded-md">
-                    <form action="{{ url_for('hours_add') }}" method="POST">
-                        <input type="hidden" name="person_id" value="{{ person_id }}">
-                        <!-- links boven vak -->
-                        <div class="">
-                            <div class="w-3/4 m-auto text-center text-indigo-900 rounded-md py-3 bg-indigo-200 mb-4 mt-6">
-                                {{ template_form.hidden_tag() }}
-                                {{ template_form.workday.label }}
-                                {{ template_form.workday(class="w-36 text-center ml-4 text-indigo-900 rounded-md") }}
-                            </div>
+                    
+                        {% if current_user.function == "admin" %}
+                        <div class="flex-1 bg-indigo-900 rounded-md"></div>
+                            <form action="{{ url_for('hours_add') }}" method="POST">
+                                <input type="hidden" name="person_id" value="{{ person_id }}">
+                                <!-- links boven vak -->
+                                <div class="">
+                                    <div class="w-3/4 m-auto text-center text-indigo-900 rounded-md py-3 bg-indigo-200 mb-4 mt-6">
+                                        {{ template_form.hidden_tag() }}
+                                        {{ template_form.workday.label }}
+                                        {{ template_form.workday(class="w-36 text-center ml-4 text-indigo-900 rounded-md") }}
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="w-1/2 m-auto text-center text-indigo-900 rounded-md py-2 bg-indigo-200 my-2">
+                                        {{ template_form.start_hour.label }}
+                                        {{ template_form.start_hour(class="w-32 text-center ml-4 text-indigo-900 rounded-md") }}
+                                    </div>
+                                    <div class="w-1/2 m-auto text-center text-indigo-900 rounded-md py-2 bg-indigo-200 mt-2 mb-4">
+                                        {{ template_form.end_hour.label }}
+                                        {{ template_form.end_hour(class="w-32 text-center ml-4 text-indigo-900 rounded-md") }}
+                                    </div> 
+                                </div>
+                                <div class="w-1/2 m-auto text-center text-xs text-indigo-900 rounded-md py-2 bg-indigo-200 my-4">
+                                    {{ template_form.type_day.label }}
+                                    {{ template_form.type_day(class="w-32 text-center text-indigo-900 rounded-md") }}
+                                </div> 
+                                <div class="text-center">
+                                    {{ template_form.submit(class="w-1/4 text-indigo-900 rounded-md py-1 bg-indigo-100 hover:bg-indigo-600 hover:text-white hover:cursor-pointer mt-2 mb-4") }}
+                                </div>  
+                            </form>
                         </div>
-                        <div class="">
-                            <div class="w-1/2 m-auto text-center text-indigo-900 rounded-md py-2 bg-indigo-200 my-2">
-                                {{ template_form.start_hour.label }}
-                                {{ template_form.start_hour(class="w-32 text-center ml-4 text-indigo-900 rounded-md") }}
-                            </div>
-                            <div class="w-1/2 m-auto text-center text-indigo-900 rounded-md py-2 bg-indigo-200 mt-2 mb-4">
-                                {{ template_form.end_hour.label }}
-                                {{ template_form.end_hour(class="w-32 text-center ml-4 text-indigo-900 rounded-md") }}
-                            </div> 
-                        </div>
-                        <div class="w-1/2 m-auto text-center text-xs text-indigo-900 rounded-md py-2 bg-indigo-200 my-4">
-                            {{ template_form.type_day.label }}
-                            {{ template_form.type_day(class="w-32 text-center text-indigo-900 rounded-md") }}
-                        </div> 
-                        <div class="text-center">
-                            {{ template_form.submit(class="w-1/4 text-indigo-900 rounded-md py-1 bg-indigo-100 hover:bg-indigo-600 hover:text-white hover:cursor-pointer mt-2 mb-4") }}
-                        </div>      
-                    </div>
-                    </form>
+                        {% else %}
+                        {% endif %}    
+                    
 
                     <div class="flex-1">
                         <!-- midden boven vak -->
