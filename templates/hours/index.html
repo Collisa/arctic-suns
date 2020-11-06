@@ -26,7 +26,7 @@
                     <h1 class="font-bold text-4xl">Werkuren</h1>
                 </div>
                 <div class="flex-1 text-right">
-                    <a href="{{ url_for('month_view', id=person_id, month=data.month) }}" class="bg-indigo-600 hover:bg-indigo-900 focus:shadow-outline rounded-md p-2 text-white font-bold">Maandoverzicht</a>
+                    <a href="{{ url_for('month_view', id=person_id, year_id=data.year, month_id=data.month) }}" class="bg-indigo-600 hover:bg-indigo-900 focus:shadow-outline rounded-md p-2 text-white font-bold">Maandoverzicht</a>
                 </div>
             </div>
         </header>

@@ -6,7 +6,7 @@ from datetime import date, datetime, timedelta
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import asc
 import calendar
-from hours.forms import HoursForm, PersonForm
+from hours.forms import HoursForm, PersonForm, MonthForm
 from hours.models import Employee
 from hours.extrahours_calculation import calculate_extrahours_week, calculate_extrahours_month, calculate_extrahours_year, calculate_month_view
 from hours.weekly_view import get_weekly_view_days
@@ -38,7 +38,8 @@ def hours_index():
             'extrahours_year': extrahours_year,
             'leavedays': leavedays,
             'weeklyview_days': get_weekly_view_days(person_id),
-            'month': month
+            'month': month,
+            'year': year
         }
 
         return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view, current_user=current_user)
@@ -117,17 +118,20 @@ def hours_edit(id, datum):
         return render_template('hours/edit.html', template_form=HoursForm(obj=item_to_change2), item_to_change=item_to_change, id=id, datum=datum, current_user=current_user)
 
 
-@app.route('/hours/month/<int:id>/<int:month>')
+@app.route('/hours/month/<int:id>')
 @login_required
-def month_view(id, month):
+def month_view(id):
     if current_user.firm == 'Collibri':
-        firstdayofmonth = datetime.today().replace(month=month, day=1) - timedelta(days=1)
+        year_id = request.args.get('year_id')
+        month_id = int(request.args.get('month_id'))
+
+        firstdayofmonth = datetime.today().replace(month=month_id, day=1) - timedelta(days=1)
 
         lastdayofmonth = (firstdayofmonth.replace(day=1) + relativedelta(months=+2) - timedelta(days=1))
 
         qry = Employee.query.filter(Employee.person_id == id,
                                     Employee.workday.between(firstdayofmonth, lastdayofmonth)).order_by(Employee.workday.asc())
 
-        return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays, current_user=current_user)
+        return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays, current_user=current_user, month_form=MonthForm(year_id=year_id, month_id=month_id), year_id=year_id, month_id=month_id)
 
 
