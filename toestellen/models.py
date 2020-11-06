@@ -9,5 +9,5 @@ class ArcticSun(db.Model):
     pick_up_location = db.Column(db.String(100))
     destination = db.Column(db.String(100))
     status = db.Column(db.String(15))
-    remarks = db.Column(db.String(10000))
+    remarks = db.Column(db.Text)
     type = db.Column(db.String(25))
