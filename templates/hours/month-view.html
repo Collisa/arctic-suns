@@ -9,11 +9,15 @@
     <div class="flex items-baseline">
         <div class="flex-1">
             <form action="{{ url_for('month_view', id=id, year_id=year_id, month_id=month_id) }}" method="GET">
-                <div class="w-1/2 text-center border-4 border-indigo-600 rounded-md py-1 my-1">
-                    {{ month_form.month_id.label }}
-                    {{ month_form.month_id(onchange="this.form.submit()") }}
-                    {{ month_form.year_id.label }}
-                    {{ month_form.year_id(onchange="this.form.submit()") }}
+                <div class="w-3/4 text-center border-4 border-indigo-600 rounded-md py-1 my-1 flex justify-around">
+                    <div class="inline-block">
+                        {{ month_form.month_id.label }}
+                        {{ month_form.month_id(onchange="this.form.submit()") }}
+                    </div>
+                    <div class="inline-block">
+                        {{ month_form.year_id.label }}
+                        {{ month_form.year_id(onchange="this.form.submit()") }}
+                    </div>
                 </div>
             </form>
         </div>
