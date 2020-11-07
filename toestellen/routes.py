@@ -4,6 +4,8 @@ from toestellen.models import ArcticSun
 from toestellen.forms import Input
 from flask_login import login_required, current_user
 from authentication.models import User
+from datetime import datetime
+from sqlalchemy import and_, or_
 
 
 @app.route('/toestellen/<string:device_type>/all', methods=["GET"])
@@ -17,7 +19,8 @@ def showAll(device_type):
 @app.route('/toestellen/<string:device_type>', methods=["GET"])
 @login_required
 def arcticsun_index(device_type):
-    all_arctic_suns = ArcticSun.query.filter(ArcticSun.date_out == None, ArcticSun.type == device_type)
+    date_format = "%d/%m/%Y"
+    all_arctic_suns = ArcticSun.query.filter(and_(or_(ArcticSun.date_out > datetime.now(), ArcticSun.date_out == None), ArcticSun.type == device_type, ArcticSun.destination != None))
     return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user)
 
 
