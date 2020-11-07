@@ -1,7 +1,8 @@
 from app import db
+from sqla_softdelete import SoftDeleteMixin
 
 
-class ArcticSun(db.Model):
+class ArcticSun(db.Model, SoftDeleteMixin):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(25))
     date_in = db.Column(db.Date)

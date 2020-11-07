@@ -43,7 +43,7 @@ def add_card():
 def delete_card():
     if current_user.firm == 'Collibri':
         item_to_delete = Card.query.filter_by(id=request.form['id']).first()
-        db.session.delete(item_to_delete)
+        item_to_delete.delete()
         db.session.commit()
         return ""
 
