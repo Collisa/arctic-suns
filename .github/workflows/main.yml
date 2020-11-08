@@ -4,6 +4,9 @@ on:
   push:
     branches: [ deployment ]
 
+env:
+  NODE_ENV: production
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
