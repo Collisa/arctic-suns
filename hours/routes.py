@@ -8,7 +8,7 @@ from sqlalchemy import asc
 import calendar
 from hours.forms import HoursForm, PersonForm, MonthForm
 from hours.models import Employee
-from hours.extrahours_calculation import calculate_extrahours_week, calculate_extrahours_month, calculate_extrahours_year, calculate_month_view
+from hours.extrahours_calculation import calculate_extrahours_week, calculate_extrahours_month, calculate_extrahours_year, calculate_month_view, hours_in_hours_and_minutes
 from hours.weekly_view import get_weekly_view_days
 import locale
 import copy
@@ -31,11 +31,18 @@ def hours_index():
         person_id = request.args.get('person_id', '1')
 
         extrahours_year, leavedays = calculate_extrahours_year(person_id)
+
+        extra_hours_year, extraminutes_year = hours_in_hours_and_minutes(extrahours_year)
+        extrahours_month, extraminutes_month = hours_in_hours_and_minutes(calculate_extrahours_month(person_id))
+        extrahours_week, extraminutes_week = hours_in_hours_and_minutes(calculate_extrahours_week(person_id))
         
         data = {
-            'extrahours_week': calculate_extrahours_week(person_id),
-            'extrahours_month': calculate_extrahours_month(person_id),
-            'extrahours_year': extrahours_year,
+            'extrahours_week': extrahours_week,
+            'extrahours_month': extrahours_month,
+            'extrahours_year': extra_hours_year,
+            'extraminutes_year': extraminutes_year,
+            'extraminutes_month': extraminutes_month,
+            'extraminutes_week': extraminutes_week,
             'leavedays': leavedays,
             'weeklyview_days': get_weekly_view_days(person_id),
             'month': month,

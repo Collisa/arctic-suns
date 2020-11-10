@@ -3,6 +3,15 @@ from hours.models import Employee
 from toestellen.models import ArcticSun
 from app import db
 import calendar
+import math
+
+
+
+def hours_in_hours_and_minutes(extra_hours):
+    hours = math.trunc(extra_hours)
+    minutes = round((extra_hours * 60) - (hours * 60))
+    return hours, minutes
+
 
 
 def calculate_extrahours_week(employee_id):
