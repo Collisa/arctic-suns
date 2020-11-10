@@ -23,7 +23,7 @@ def showAll(device_type):
 def arcticsun_index(device_type):
     alle = False
     now = datetime.now().date()
-    all_arctic_suns = ArcticSun.query.filter(and_(or_(ArcticSun.date_out > datetime.now(), ArcticSun.date_out == None), ArcticSun.type == device_type, ArcticSun.destination != None))
+    all_arctic_suns = ArcticSun.query.filter(and_(or_(ArcticSun.date_out >= datetime.now(), ArcticSun.date_out == None), ArcticSun.type == device_type, ArcticSun.destination != None))
     return render_template("toestellen/view.html", template_form=Input(), all_arctic_suns=all_arctic_suns, device_type=device_type, current_user=current_user, alle=alle, now=now)
 
 
