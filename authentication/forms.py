@@ -29,3 +29,18 @@ class LoginForm(FlaskForm):
     password = PasswordField("Paswoord", validators=[DataRequired()])
     remember = BooleanField("Onthoud Me")
     submit = SubmitField("Log In")
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    submit = SubmitField("Reset Paswoord")
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError("Er bestaat nog geen account voor dit emailadres.")
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField("Paswoord", validators=[DataRequired()])
+    confirm_password = PasswordField("Bevestig Paswoord", validators=[DataRequired(), EqualTo("password")])
+    submit = SubmitField("Reset Paswoord")

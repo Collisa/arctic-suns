@@ -1,6 +1,9 @@
 # App files to be built
 static/css/tailwind-app.css
 
+# Run app + app.config[instellingen]
+frun.ps1
+
 # NPM files
 node_modules/
 

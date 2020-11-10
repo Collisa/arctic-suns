@@ -1,9 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
+import os
 from os import environ
 from flask_migrate import Migrate
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_mail import Mail
 
 
 app = Flask(__name__)
@@ -19,6 +21,12 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "info"
+app.config['MAIL_SERVER'] = environ.get('MAIL_SERVER')
+app.config['MAIL_PORT'] = environ.get('MAIL_PORT')
+app.config['MAIL_USE_TLS'] = environ.get('MAIL_USE_TLS')
+app.config['MAIL_USERNAME'] = environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = environ.get('MAIL_PASSWORD')
+mail = Mail(app)
 
 from commands import usersbp
 app.register_blueprint(usersbp)
