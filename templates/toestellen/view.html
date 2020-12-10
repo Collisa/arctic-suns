@@ -6,6 +6,7 @@
 
 
 
+
 <!--Hoofding-->
 <header class="w-11/12 mx-auto pt-20">
     <div class="flex items-baseline">
@@ -91,7 +92,7 @@
 
 
                 {% if arctic.date_in %}
-                    <td>{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
+                    <td data-sort="{{ arctic.date_in.strftime('%Y-%m-%d') }}">{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
                 {% else %}
                     <td></td>
                 {% endif %}
@@ -111,7 +112,7 @@
 
 
                 {% if arctic.date_out %}
-                    <td>{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
+                    <td data-sort="{{ arctic.date_out.strftime('%Y-%m-%d') }}">{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
                 {% else %}
                     <td></td>
                 {% endif %}
@@ -221,6 +222,7 @@
                 }
             }
         });
+        
     });
 </script>
 

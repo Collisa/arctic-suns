@@ -5,6 +5,7 @@
 <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 
+
 <!--Hoofding-->
 <header class="container mx-auto pt-20">
     <div class="flex items-baseline">
@@ -52,12 +53,12 @@
                     <td>{{ card.card }}</td>
                     <td>{{ card.chauffeur }}</td>
                 {% if card.date_out %}
-                    <td>{{ card.date_out.strftime('%d/%m/%Y') }}</td>
+                    <td  data-sort="{{ card.date_out.strftime('%Y-%m-%d') }}">{{ card.date_out.strftime('%d/%m/%Y') }}</td>
                 {% else %}
                     <td></td>
                 {% endif %}
                 {% if card.date_retour %}
-                    <td>{{ card.date_retour.strftime('%d/%m/%Y') }}</td>
+                    <td data-sort="{{ card.date_retour.strftime('%Y-%m-%d') }}">{{ card.date_retour.strftime('%d/%m/%Y') }}</td>
                 {% else %}
                     <td></td>
                 {% endif %}
