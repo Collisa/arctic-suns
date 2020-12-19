@@ -5,12 +5,15 @@ from kaarten.models import Card
 from flask_login import login_required, current_user
 from authentication.models import User
 
+
+kaarten = True
+
 @app.route('/kaarten', methods=["GET"])
 @login_required
 def kaart_index():
     if current_user.firm == 'Collibri':
         all_cards = Card.query.filter(Card.date_retour == None)
-        return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards, current_user=current_user)
+        return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards, current_user=current_user, kaarten=kaarten)
 
 
 @app.route('/kaarten/all', methods=["GET"])
@@ -18,7 +21,7 @@ def kaart_index():
 def kaart_show_all():
     if current_user.firm == 'Collibri':
         all_cards = Card.query.all()
-        return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards, current_user=current_user)
+        return render_template("kaarten/index.html", template_form=CardForm(), all_cards=all_cards, current_user=current_user, kaarten=kaarten)
 
 
 @app.route('/kaart/add', methods=["POST"])

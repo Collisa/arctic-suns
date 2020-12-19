@@ -14,12 +14,45 @@
           </div>
           <div class="hidden sm:block sm:ml-6">
             <div class="flex">
-              <a href="{{ url_for('arcticsun_index', device_type='arctic') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Arctic Sun</a>
-              <a href="{{ url_for('arcticsun_index', device_type='encor') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Encor</a>
-              <a href="{{ url_for('arcticsun_index', device_type='kleine_kist') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Kleine Kisten</a>
+
+              {% if device_type == "arctic" %}
+                <a href="{{ url_for('arcticsun_index', device_type='arctic') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-indigo-700">Arctic Sun</a>                
+              {% else %}
+                <a href="{{ url_for('arcticsun_index', device_type='arctic') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Arctic Sun</a>  
+              {% endif %}
+
+
+              {% if device_type == "encor" %}
+                <a href="{{ url_for('arcticsun_index', device_type='encor') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-indigo-700">Encor</a>                
+              {% else %}
+                <a href="{{ url_for('arcticsun_index', device_type='encor') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Encor</a>  
+              {% endif %}
+
+
+              {% if device_type == "kleine_kist" %}
+                <a href="{{ url_for('arcticsun_index', device_type='kleine_kist') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-indigo-700">Kleine Kisten</a>                
+              {% else %}
+                <a href="{{ url_for('arcticsun_index', device_type='kleine_kist') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Kleine Kisten</a>  
+              {% endif %}
+              
+              
               {% if current_user.firm == 'Collibri' %}
-                <a href="{{ url_for('kaart_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Kaarten</a>
-                <a href="{{ url_for('hours_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Werkuren</a>
+
+                {% if kaarten %}
+                  <a href="{{ url_for('kaart_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-indigo-700">Kaarten</a>                
+                {% else %}
+                  <a href="{{ url_for('kaart_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Kaarten</a>  
+                {% endif %}
+
+
+                {% if werkuren %}
+                  <a href="{{ url_for('hours_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-indigo-700">Werkuren</a>                
+                {% else %}
+                  <a href="{{ url_for('hours_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Werkuren</a>  
+                {% endif %}
+
+                <!-- <a href="{{ url_for('kaart_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Kaarten</a>
+                <a href="{{ url_for('hours_index') }}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out">Werkuren</a> -->
               {% endif %}
               </div>
           </div>

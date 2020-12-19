@@ -17,6 +17,8 @@ weekDays = ("Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"
 
 
 
+werkuren = True
+
 @app.route('/hours', methods=["GET"])
 @login_required
 def hours_index():
@@ -49,7 +51,7 @@ def hours_index():
             'year': year
         }
 
-        return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view, current_user=current_user)
+        return render_template("hours/index.html", days_off=days_off, template_form=HoursForm(), person_form=PersonForm(person_id=person_id), person_id=person_id, data=data, month_view=month_view, current_user=current_user, werkuren=werkuren)
 
 
 
@@ -139,6 +141,6 @@ def month_view(id):
         qry = Employee.query.filter(Employee.person_id == id,
                                     Employee.workday.between(firstdayofmonth, lastdayofmonth)).order_by(Employee.workday.asc())
 
-        return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays, current_user=current_user, month_form=MonthForm(year_id=year_id, month_id=month_id), year_id=year_id, month_id=month_id)
+        return render_template('hours/month-view.html', id=id, qry=qry, weekDays=weekDays, current_user=current_user, month_form=MonthForm(year_id=year_id, month_id=month_id), year_id=year_id, month_id=month_id, werkuren=werkuren)
 
 
