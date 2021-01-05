@@ -45,7 +45,6 @@ packaging==20.8
 pathspec==0.8.1
 pipenv==2020.11.15
 mock==4.0.2
-packaging==20.4
 passlib==1.7.4
 pluggy==0.13.1
 psycopg2==2.8.6
