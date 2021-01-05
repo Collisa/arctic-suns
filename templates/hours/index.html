@@ -2,9 +2,10 @@
 {% block content %}
 
 
+
 <!-- schermindeling in helften-->
 <div class="flex flex-col w-full">
-    
+
 
     <div class="w-11/12 mx-auto">
 
@@ -26,12 +27,29 @@
                     <h1 class="font-bold text-4xl">Werkuren</h1>
                 </div>
                 <div class="flex-1 text-right">
+                    <a class="bg-indigo-600 hover:bg-indigo-900 focus:shadow-outline rounded-md p-2 text-white font-bold" href="{{ url_for('worker_settings') }}">Settings</a>
                     <a href="{{ url_for('month_view', id=person_id, year_id=data.year, month_id=data.month) }}" class="bg-indigo-600 hover:bg-indigo-900 focus:shadow-outline rounded-md p-2 text-white font-bold">Maandoverzicht</a>
                 </div>
             </div>
         </header>
 
-
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="container mx-auto my-6">
+            {% for message in messages %}
+                <div class="border-t-4 rounded-b px-4 py-3 shadow-md bg-red-100  border-red-500 text-red-900" role="alert">
+                    <div class="flex">
+                      <div class="py-1">
+                          <svg class="fill-current h-6 w-6  mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                      <div>
+                        <p class="text-sm leading-8">{{ message }}</p>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
 
     <!-- 2 halve schermen boven en onder beginnen hieronder -->
 
@@ -138,18 +156,18 @@
                         <div class="border-8 border-indigo-900 rounded-md">
                             <div class="w-3/4 border-4 border-indigo-900 rounded-md m-auto my-5">
                                 <div class="box-content text-center text-white font-bold rounded-md py-3 bg-indigo-800 m-1">
-                                    Opgenomen verlof
+                                    Opgenomen uren
                                 </div>
                                 <div class="box-content text-center text-indigo-900 rounded-md py-3 bg-indigo-300 m-1">
-                                    {{ data.leavedays }}
+                                    {{ data.leave_hours }} (= {{ data.leave_days_off }} dagen)
                                 </div>
                             </div>
                             <div class="w-3/4 border-4 border-indigo-900 rounded-md m-auto my-5">
                                 <div class="box-content text-center text-white font-bold rounded-md py-3 bg-indigo-800 m-1">
-                                    Totaal te nemen verlof
+                                    Totaal op te nemen uren
                                 </div>
                                 <div class="box-content text-center text-indigo-900 rounded-md py-3 bg-indigo-300 m-1">
-                                    {{ days_off }}
+                                    {{ hours_off }} (= {{ data.days_off }} dagen)
                                 </div>
                             </div>
                               
@@ -185,11 +203,17 @@
                                         {% for i in range(7) %}
                                             <td class="w-1/8 p-4">
                                                 {% if data.weeklyview_days[i] and data.weeklyview_days[i].type == 'werkdag'  %}
-                                                {% if data.weeklyview_days[i].end %}
-                                                    {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - {{ data.weeklyview_days[i].end.strftime('%H:%M') }}
-                                                {% else %}
-                                                    {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - /
-                                                {% endif %}
+                                                    {% if data.weeklyview_days[i].end %}
+                                                        {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - {{ data.weeklyview_days[i].end.strftime('%H:%M') }}
+                                                    {% else %}
+                                                        {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - /
+                                                    {% endif %}
+                                                {% elif data.weeklyview_days[i] and data.weeklyview_days[i].type == 'combi' %}
+                                                    {% if data.weeklyview_days[i].end %}
+                                                        {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - {{ data.weeklyview_days[i].end.strftime('%H:%M') }} + verlof
+                                                    {% else %}
+                                                        {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - / + verlof
+                                                    {% endif %}
                                                 {% elif data.weeklyview_days[i] and data.weeklyview_days[i].type == 'verlof' %}
                                                     Verlof
                                                 {% elif data.weeklyview_days[i] and data.weeklyview_days[i].type == 'recupdag' %}

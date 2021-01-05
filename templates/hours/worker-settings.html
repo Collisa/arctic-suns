@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <!-- schermindeling in helften-->
+    <div class="flex flex-col w-full">
+        <div class="w-11/12 mx-auto">
+
+            <!--Hoofding-->
+            <header class="w-full mx-auto mt-20">
+                <div class="flex items-baseline">
+                    <div class="flex-1"></div>
+                    <div class="flex-1 text-center text-indigo-600">
+                        <h1 class="font-bold text-4xl">Settings</h1>
+                    </div>
+                    <div class="flex-1 text-right">
+                       </div>
+                </div>
+            </header>
+
+
+            <form class="flex flex-col max-w-lg mx-auto space-y-2 mt-6" action="{{ url_for('add_worker') }}" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="flex">
+                    {{ form.name.label(class="w-1/2") }}
+                    {{ form.name(class="2/8") }}
+                    <p class="w-1/8"></p>
+                </div>
+                <div class="flex">
+                    {{ form.total_hours_off_a_year.label(class="w-1/2") }}
+                    {{ form.total_hours_off_a_year(class="2/8") }}
+                    <p class="w-1/8">uren</p>
+                </div>
+                <div class="flex">
+                    {{ form.total_hours_in_one_full_workday.label(class="w-1/2") }}
+                    {{ form.total_hours_in_one_full_workday(class="2/8") }}
+                    <p class="w-1/8">uren</p>
+                </div>
+
+                <div class="flex items-center">
+                    {{ form.extra_minutes_left_from_last_year.label(class="w-1/2") }}
+                    {{ form.extra_minutes_left_from_last_year(class="2/8") }}
+                    <p class="w-1/8">minuten</p>
+                </div>
+
+                <p class="mx-auto text-sm text-red-500">Gebruik een . ipv een , om de uren in te geven.</p>
+
+                <div class="mx-auto">
+                    {{ form.submit(class="text-indigo-900 rounded-md py-1 px-2 bg-indigo-100 hover:bg-indigo-600 hover:text-white hover:cursor-pointer mt-2 mb-4") }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

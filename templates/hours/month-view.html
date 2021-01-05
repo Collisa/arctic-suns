@@ -109,6 +109,27 @@
                         {% else %}
                         <td></td>
                         {% endif %}
+                {% elif line.type_day == "combinatie werkdag + verlofuren (enkel de gewerkte uren in te vullen)" %}
+                    <tr class="bg-green-400 text-white">
+                        <td>{{ weekDays[line.workday.weekday()] }}</td>
+                        <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
+                        <td>combinatie-dag</td>
+                        {% if line.end_hour %}
+                            <td>{{ line.start_hour.strftime('%H:%M') }} - {{ line.end_hour.strftime('%H:%M') }}</td>
+                        {% else %}
+                            <td>{{ line.start_hour.strftime('%H:%M') }} - / </td>
+                        {% endif %}
+                        {% if line.end_hour %}
+                        <td>{{ 8 + (line.extra_hours / 60) }}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        {% if line.end_hour %}
+                        <td>{{ abs(line.extra_hours / 60) }} verlofuren opgenomen</td>
+                        {% else %}
+                        <td></td>
+
+                        {% endif %}
                     </tr>
                 {% endif %}
             {% endfor %}    
