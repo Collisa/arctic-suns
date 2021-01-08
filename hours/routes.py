@@ -255,8 +255,10 @@ def month_view(id):
 @login_required
 def worker_settings():
     if current_user.firm == "Collibri" and current_user.function == "admin":
-
-        return render_template("hours/worker-settings.html", form=WorkerForm())
+        workers = Worker.query.all()
+        return render_template(
+            "hours/worker-settings.html", form=WorkerForm(), workers=workers
+        )
 
 
 @app.route("/hours/add_worker", methods=["POST"])
