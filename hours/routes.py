@@ -219,12 +219,12 @@ def hours_edit(id, datum):
 @login_required
 def month_view(id):
     if current_user.firm == "Collibri":
-        year_id = request.args.get("year_id")
+        year_id = int(request.args.get("year_id"))
         month_id = int(request.args.get("month_id"))
 
-        firstdayofmonth = datetime.today().replace(month=month_id, day=1) - timedelta(
-            days=1
-        )
+        firstdayofmonth = datetime.today().replace(
+            year=year_id, month=month_id, day=1
+        ) - timedelta(days=1)
 
         lastdayofmonth = (
             firstdayofmonth.replace(day=1)
@@ -247,6 +247,7 @@ def month_view(id):
             year_id=year_id,
             month_id=month_id,
             werkuren=werkuren,
+            abs=abs,
         )
 
 
