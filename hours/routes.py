@@ -53,7 +53,7 @@ def hours_index():
             .total_hours_in_one_full_workday,
             2,
         )
-
+        today = date.today().strftime("%a %d/%m/%Y")
         extrahours_year, leave_days, leave_extra_minutes = calculate_extrahours_year(
             person_id
         )
@@ -88,7 +88,7 @@ def hours_index():
         extrahours_week, extraminutes_week = hours_in_hours_and_minutes(
             calculate_extrahours_week(person_id)
         )
-        print(leave_extra_minutes)
+
         data = {
             "extrahours_week": extrahours_week,
             "extrahours_month": extrahours_month,
@@ -102,6 +102,7 @@ def hours_index():
             "year": year,
             "days_off": days_off,
             "leave_days_off": leave_days_off,
+            "today": today,
         }
 
         return render_template(
