@@ -16,6 +16,9 @@
             <div class="flex-1 text-center text-indigo-600">
                 {% if device_type == "arctic" %}
                     <h1 class="font-bold text-4xl">Arctic Sun</h1>
+                    {% if CRS %}
+                        <h2>Aan deze pagina wordt nog gewerkt...</h2>
+                    {% endif %} 
                 {% elif device_type == "encor" %}
                     <h1 class="font-bold text-4xl">Encor</h1>
                 {% elif device_type == "kleine_kist" %}
@@ -27,8 +30,8 @@
                     <a class="btn btn-indigo" href="{{ url_for('arcticsun_index', device_type=device_type) }}">bij
                         Collibri</a>
                     {% if device_type == "arctic" %}
-                        <a class="btn btn-indigo" href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">bij
-                            CRS</a>
+                        <a class="btn btn-indigo"
+                           href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">CRS</a>
                     {% endif %}
                     <a class="btn bg-indigo-500 text-white" href="{{ url_for('showAll', device_type=device_type) }}">Alles</a>
                 {% elif CRS == True %}
@@ -36,15 +39,15 @@
                         Collibri</a>
                     {% if device_type == "arctic" %}
                         <a class="btn bg-indigo-500 text-white"
-                           href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">bij CRS</a>
+                           href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">CRS</a>
                     {% endif %}
                     <a class="btn btn-indigo" href="{{ url_for('showAll', device_type=device_type) }}">Alles</a>
                 {% else %}
                     <a class="btn bg-indigo-500 text-white"
                        href="{{ url_for('arcticsun_index', device_type=device_type) }}">bij Collibri</a>
                     {% if device_type == "arctic" %}
-                        <a class="btn btn-indigo" href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">bij
-                            CRS</a>
+                        <a class="btn btn-indigo"
+                           href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">CRS</a>
                     {% endif %}
                     <a class="btn btn-indigo" href="{{ url_for('showAll', device_type=device_type) }}">Alles</a>
                 {% endif %}
