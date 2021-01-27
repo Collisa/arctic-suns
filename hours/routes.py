@@ -35,10 +35,8 @@ werkuren = True
 @login_required
 def hours_index():
     if current_user.firm == "Collibri":
-
         year, month = calculate_month_view()
         locale.setlocale(locale.LC_ALL, "nl_NL")
-        # month_view = calendar.month(year, month)
         month_view = calendar.TextCalendar().formatmonth(year, month)
 
         person_id = request.args.get("person_id", "1")
@@ -64,6 +62,7 @@ def hours_index():
             .first()
             .total_hours_in_one_full_workday
         )
+
         leave_hours -= ((leave_extra_minutes / 60) / 8) * Worker.query.filter(
             Worker.id == person_id
         ).first().total_hours_in_one_full_workday

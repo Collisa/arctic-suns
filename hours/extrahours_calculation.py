@@ -36,7 +36,6 @@ def calculate_extrahours_week(employee_id):
 
 
 def calculate_extrahours_month(employee_id):
-
     firstdayofmonth = datetime.today().replace(day=1) - timedelta(days=1)
 
     if (firstdayofmonth.month + 1) == 13:

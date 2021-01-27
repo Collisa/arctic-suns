@@ -16,12 +16,10 @@ workers = []
 for worker in Worker.query.all():
     workers.append((worker.id, worker.name))
 
-# employees = [(1, "Lisa"), (2, "Elio")]
 employees = workers
 
 
 class HoursForm(FlaskForm):
-    # person_name = SelectField("Werknemer", choices=["Lisa", "Elio"])
     person_id = StringField("")
     workday = DateField("Werkdag")
     start_hour = TimeField("Start")
