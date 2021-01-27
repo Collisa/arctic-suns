@@ -52,6 +52,42 @@ def arcticsun_index(device_type):
     )
 
 
+@app.route("/toestellen/<string:device_type>/CRS", methods=["GET"])
+@login_required
+def arcticsun_at_crs(device_type):
+    alle = False
+    CRS = True
+    now = datetime.now().date()
+
+    all_arctic_suns = ArcticSun.query.filter(
+        and_(
+            or_(
+                ArcticSun.destination.contains("CRS"),
+                ArcticSun.destination.contains("Asslar"),
+                ArcticSun.destination.contains("Aßlar"),
+                ArcticSun.destination.contains("asslar"),
+                ArcticSun.destination.contains("crs"),
+                ArcticSun.pick_up_location.contains("CRS"),
+                ArcticSun.pick_up_location.contains("Asslar"),
+                ArcticSun.pick_up_location.contains("Aßlar"),
+                ArcticSun.pick_up_location.contains("asslar"),
+                ArcticSun.pick_up_location.contains("crs"),
+            ),
+            ArcticSun.type == "arctic",
+        )
+    )
+    return render_template(
+        "toestellen/view.html",
+        template_form=Input(),
+        all_arctic_suns=all_arctic_suns,
+        device_type=device_type,
+        current_user=current_user,
+        alle=alle,
+        now=now,
+        CRS=CRS,
+    )
+
+
 @app.route("/add", methods=["POST"])
 @login_required
 def add():

@@ -26,10 +26,26 @@
                 {% if alle == True %}
                     <a class="btn btn-indigo" href="{{ url_for('arcticsun_index', device_type=device_type) }}">bij
                         Collibri</a>
+                    {% if device_type == "arctic" %}
+                        <a class="btn btn-indigo" href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">bij
+                            CRS</a>
+                    {% endif %}
                     <a class="btn bg-indigo-500 text-white" href="{{ url_for('showAll', device_type=device_type) }}">Alles</a>
+                {% elif CRS == True %}
+                    <a class="btn btn-indigo" href="{{ url_for('arcticsun_index', device_type=device_type) }}">bij
+                        Collibri</a>
+                    {% if device_type == "arctic" %}
+                        <a class="btn bg-indigo-500 text-white"
+                           href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">bij CRS</a>
+                    {% endif %}
+                    <a class="btn btn-indigo" href="{{ url_for('showAll', device_type=device_type) }}">Alles</a>
                 {% else %}
                     <a class="btn bg-indigo-500 text-white"
                        href="{{ url_for('arcticsun_index', device_type=device_type) }}">bij Collibri</a>
+                    {% if device_type == "arctic" %}
+                        <a class="btn btn-indigo" href="{{ url_for('arcticsun_at_crs', device_type=device_type) }}">bij
+                            CRS</a>
+                    {% endif %}
                     <a class="btn btn-indigo" href="{{ url_for('showAll', device_type=device_type) }}">Alles</a>
                 {% endif %}
 
