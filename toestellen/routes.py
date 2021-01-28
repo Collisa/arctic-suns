@@ -73,7 +73,9 @@ def arcticsun_at_crs(device_type):
                 ArcticSun.destination.contains("crs"),
             ),
             ArcticSun.type == "arctic",
-            or_(ArcticSun.returned_from_crs == None, ArcticSun.returned_from_crs == 0),
+            or_(
+                ArcticSun.returned_from_crs == None, ArcticSun.returned_from_crs == "0"
+            ),
         )
     )
     return render_template(
