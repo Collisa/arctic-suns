@@ -35,10 +35,10 @@ def arcticsun_index(device_type):
         and_(
             or_(
                 ArcticSun.date_out >= datetime.now() - timedelta(days=1),
-                ArcticSun.date_out is None,
+                ArcticSun.date_out == None,
             ),
             ArcticSun.type == device_type,
-            ArcticSun.destination is not None,
+            ArcticSun.destination != None,
         )
     )
     return render_template(
@@ -126,7 +126,7 @@ def change(id):
     if current_user.firm == "Collibri":
         item_to_change = ArcticSun.query.get(id)
         all_arctic_suns = ArcticSun.query.filter(
-            ArcticSun.date_out is None, ArcticSun.type == item_to_change.type
+            ArcticSun.date_out == None, ArcticSun.type == item_to_change.type
         )
         form = Input(request.form)
         if request.method == "POST":

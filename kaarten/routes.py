@@ -11,7 +11,7 @@ kaarten = True
 @login_required
 def kaart_index():
     if current_user.firm == "Collibri":
-        all_cards = Card.query.filter(Card.date_retour is None)
+        all_cards = Card.query.filter(Card.date_retour == None)
         return render_template(
             "kaarten/index.html",
             template_form=CardForm(),
@@ -67,7 +67,7 @@ def delete_card():
 @login_required
 def change_card(id):
     if current_user.firm == "Collibri":
-        all_cards = Card.query.filter(Card.date_out is None)
+        all_cards = Card.query.filter(Card.date_out == None)
         item_to_change = Card.query.get(id)
         form = CardForm(request.form)
 
