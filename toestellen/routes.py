@@ -7,6 +7,10 @@ from datetime import datetime, timedelta
 from sqlalchemy import and_, or_
 
 
+def redirect_url(default="arcticsun_index"):
+    return request.args.get("next") or request.referrer or url_for(default)
+
+
 @app.route("/toestellen/<string:device_type>/all", methods=["GET"])
 @login_required
 def showAll(device_type):
@@ -67,13 +71,9 @@ def arcticsun_at_crs(device_type):
                 ArcticSun.destination.contains("Aßlar"),
                 ArcticSun.destination.contains("asslar"),
                 ArcticSun.destination.contains("crs"),
-                ArcticSun.pick_up_location.contains("CRS"),
-                ArcticSun.pick_up_location.contains("Asslar"),
-                ArcticSun.pick_up_location.contains("Aßlar"),
-                ArcticSun.pick_up_location.contains("asslar"),
-                ArcticSun.pick_up_location.contains("crs"),
             ),
             ArcticSun.type == "arctic",
+            or_(ArcticSun.returned_from_crs == None, ArcticSun.returned_from_crs == 0),
         )
     )
     return render_template(
@@ -86,6 +86,16 @@ def arcticsun_at_crs(device_type):
         now=now,
         CRS=CRS,
     )
+
+
+@app.route("/toestellen/<string:device_type>/CRS/<int:id>", methods=["POST"])
+@login_required
+def change_crs_state(device_type, id):
+    if current_user.firm == "Collibri":
+        item_to_change = ArcticSun.query.get(id)
+        item_to_change.returned_from_crs = True
+        db.session.commit()
+        return redirect(url_for("arcticsun_at_crs", device_type=device_type))
 
 
 @app.route("/add", methods=["POST"])
@@ -107,7 +117,7 @@ def add():
             )
             db.session.add(arctic_sun)
             db.session.commit()
-        return redirect(url_for("arcticsun_index", device_type=form.type.data))
+        return redirect(redirect_url())
 
 
 @app.route("/delete", methods=["POST"])
@@ -120,7 +130,7 @@ def delete():
         return ""
 
 
-@app.route("/change/<int:id>", methods=["GET", "POST"])
+@app.route("/change/<int:id>", methods=["GET"])
 @login_required
 def change(id):
     if current_user.firm == "Collibri":
@@ -128,17 +138,6 @@ def change(id):
         all_arctic_suns = ArcticSun.query.filter(
             ArcticSun.date_out == None, ArcticSun.type == item_to_change.type
         )
-        form = Input(request.form)
-        if request.method == "POST":
-            item_to_change.name = form.name.data
-            item_to_change.date_in = form.date_in.data
-            item_to_change.date_out = form.date_out.data
-            item_to_change.pick_up_location = form.pick_up_location.data
-            item_to_change.destination = form.destination.data
-            item_to_change.status = form.status.data
-            item_to_change.remarks = form.remarks.data
-            db.session.commit()
-            return redirect(url_for("arcticsun_index", device_type=item_to_change.type))
 
         return render_template(
             "toestellen/edit.html",
@@ -148,3 +147,22 @@ def change(id):
             device_type=item_to_change.type,
             item_to_change=item_to_change,
         )
+
+
+@app.route("/change/<int:id>/change", methods=["POST"])
+@login_required
+def change_change(id):
+    if current_user.firm == "Collibri":
+        item_to_change = ArcticSun.query.get(id)
+
+        form = Input(request.form)
+
+        item_to_change.name = form.name.data
+        item_to_change.date_in = form.date_in.data
+        item_to_change.date_out = form.date_out.data
+        item_to_change.pick_up_location = form.pick_up_location.data
+        item_to_change.destination = form.destination.data
+        item_to_change.status = form.status.data
+        item_to_change.remarks = form.remarks.data
+        db.session.commit()
+        return redirect(url_for("arcticsun_index", device_type=item_to_change.type))

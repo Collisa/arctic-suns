@@ -18,7 +18,7 @@
                     <h1 class="font-bold text-4xl">Arctic Sun</h1>
                     {% if CRS %}
                         <h2>Aan deze pagina wordt nog gewerkt...</h2>
-                    {% endif %} 
+                    {% endif %}
                 {% elif device_type == "encor" %}
                     <h1 class="font-bold text-4xl">Encor</h1>
                 {% elif device_type == "kleine_kist" %}
@@ -94,6 +94,9 @@
 
                 {% if current_user.firm == "Collibri" %}
                     <th class="w-1/8"></th>
+                    {% if CRS %}
+                        <th class="w-1/8"></th>
+                    {% endif %}
                 {% endif %}
 
 
@@ -155,6 +158,15 @@
                             <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
                                 <input class="btn btn-indigo py-1" type="submit" value="Wijzig"></form>
                             <button class="btn btn-indigo py-1" onclick="showModal({{ arctic.id }})">X</button>
+                        </td>
+                    {% endif %}
+
+                    {% if CRS %}
+                        <td>
+                            <form action="{{ url_for('change_crs_state', device_type='arctic', id=arctic.id) }}"
+                                  method="POST">
+                                <button type="submit" class="btn btn-indigo py-1">is terug</button>
+                            </form>
                         </td>
                     {% endif %}
                 </tr>

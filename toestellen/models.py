@@ -12,3 +12,4 @@ class ArcticSun(db.Model, SoftDeleteMixin):
     status = db.Column(db.String(15))
     remarks = db.Column(db.Text)
     type = db.Column(db.String(25))
+    returned_from_crs = db.Column(db.Boolean, default=False)
