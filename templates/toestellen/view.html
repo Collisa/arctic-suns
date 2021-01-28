@@ -161,7 +161,7 @@
                         </td>
                     {% endif %}
 
-                    {% if CRS %}
+                    {% if CRS and current_user.firm == "Collibri" %}
                         <td>
                             <form action="{{ url_for('change_crs_state', device_type='arctic', id=arctic.id) }}"
                                   method="POST">
