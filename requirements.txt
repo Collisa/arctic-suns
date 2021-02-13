@@ -59,6 +59,7 @@ pytest==6.2.1
 python-dateutil==2.8.1
 python-editor==1.0.4
 regex==2020.11.13
+sentry-sdk==0.20.1
 six==1.15.0
 soupsieve==2.0.1
 sqla-softdelete==1.2

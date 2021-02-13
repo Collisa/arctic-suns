@@ -1,3 +1,5 @@
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_migrate import Migrate
@@ -5,6 +7,13 @@ from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+
+if environ.get("FLASK_ENV") != "development":
+    sentry_sdk.init(
+        dsn="https://54a71b52530b401cbe05e12f084eedbb@o234850.ingest.sentry.io/5635840",
+        integrations=[FlaskIntegration()],
+        traces_sample_rate=0.25,
+    )
 
 app = Flask(__name__)
 app.config[

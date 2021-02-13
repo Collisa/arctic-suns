@@ -11,6 +11,11 @@ def redirect_url(default="arcticsun_index"):
     return request.args.get("next") or request.referrer or url_for(default)
 
 
+@app.route("/debug-sentry")
+def trigger_error():
+    division_by_zero = 1 / 0
+
+
 @app.route("/toestellen/<string:device_type>/all", methods=["GET"])
 @login_required
 def showAll(device_type):
