@@ -27,4 +27,3 @@ jobs:
         git checkout -B master
         git add -f static/
         git commit -m "Build front-end assets"
-        git push -f origin master
