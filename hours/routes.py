@@ -131,7 +131,7 @@ def hours_add():
             ) - datetime.combine(date.today(), hour_form.start_hour.data)
             extra_hours = extra_hours - timedelta(hours=8)
             extra_hours = int(extra_hours.total_seconds() / 60)
-
+        # commetn
         try:
             day = Employee(
                 person_id=hour_form.person_id.data,
