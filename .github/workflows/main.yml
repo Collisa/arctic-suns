@@ -26,3 +26,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git checkout -B master
         git add -f static/
+        git commit -m "Build front-end assets"
