@@ -125,7 +125,7 @@ def hours_add():
 
         extra_hours = 0
 
-        if hour_form.end_hour.data:
+        if hour_form.end_hour.data and hour_form.start_hour.data:
             extra_hours = datetime.combine(
                 date.today(), hour_form.end_hour.data
             ) - datetime.combine(date.today(), hour_form.start_hour.data)

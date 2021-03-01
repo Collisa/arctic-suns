@@ -4,11 +4,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
-
-
-
     <!--Hoofding-->
-    <header class="w-11/12 mx-auto pt-20">
+    <header class="w-full pt-20">
         <div class="flex items-baseline">
             <div class="flex-1">
 
@@ -16,16 +13,13 @@
             <div class="flex-1 text-center text-indigo-600">
                 {% if device_type == "arctic" %}
                     <h1 class="font-bold text-4xl">Arctic Sun</h1>
-                    {% if CRS %}
-                        <h2>Aan deze pagina wordt nog gewerkt...</h2>
-                    {% endif %}
                 {% elif device_type == "encor" %}
                     <h1 class="font-bold text-4xl">Encor</h1>
                 {% elif device_type == "kleine_kist" %}
                     <h1 class="font-bold text-4xl">Kleine Kist</h1>
                 {% endif %}
             </div>
-            <div class="flex-1 text-right">
+            <div class="flex-1 flex flex-col md:flex-row  items-end justify-end md:space-y-0 md:space-x-1 space-y-1 text-xs md:text-base">
                 {% if alle == True %}
                     <a class="btn btn-indigo" href="{{ url_for('arcticsun_index', device_type=device_type) }}">bij
                         Collibri</a>
@@ -70,41 +64,41 @@
 
 
     <!--Tabel weergave-->
-    <div class="w-11/12 mx-auto mt-6">
+    <div class="w-full mt-6 text-xs lg:text-sm xl:text-base">
 
         <table style="border-collapse: collapse;" id="myTable"
-               class="w-full text-center bg-indigo-200 mt-4 table-fixed border-collapse">
+               class="w-full text-center bg-indigo-200 mt-4 table-auto border-collapse">
             <thead class="border-collapse">
-            <tr class="table-header border-4 border-indigo-600 border-collapse">
-                <th class="w-1/12">Identificatie</th>
+            <tr class="table-header border-4 border-indigo-600 border-collapse table-auto">
+                <th class="">Identificatie</th>
 
 
                 {% if device_type =="kleine_kist" %} {% else %}
-                    <th class="w-1/12">Status</th>
+                    <th class="">Status</th>
                 {% endif %}
 
 
-                <th class="w-1/12">Afhaaldatum</th>
-                <th class="w-1/8">Afhaaladres</th>
-                <th class="w-1/12 bg-orange-300">bij Collibri</th>
-                <th class="w-1/12">Leverdatum</th>
-                <th class="w-1/8">Bestemming</th>
-                <th class="w-1/8">Opmerking</th>
+                <th class="hidden md:table-cell">Afhaaldatum</th>
+                <th class="hidden sm:table-cell">Afhaaladres</th>
+                <th class="bg-orange-300 ">bij Collibri</th>
+                <th class="hidden md:block ">Leverdatum</th>
+                <th class="hidden sm:table-cell">Bestemming</th>
+                <th class="hidden lg:block ">Opmerking</th>
 
 
                 {% if current_user.firm == "Collibri" %}
-                    <th class="w-1/8"></th>
+                    <th class="hidden md:table-cell"></th>
                     {% if CRS %}
-                        <th class="w-1/8"></th>
+                        <th class=""></th>
                     {% endif %}
                 {% endif %}
 
 
             </tr>
             </thead>
-            <tbody>
+            <tbody class="">
             {% for arctic in all_arctic_suns %}
-                <tr class="odd:bg-indigo-100" data-id="{{ arctic.id }}">
+                <tr class="odd:bg-indigo-100 align-middle" data-id="{{ arctic.id }}">
                     <td>{{ arctic.name }}</td>
 
 
@@ -117,19 +111,19 @@
 
 
                     {% if arctic.date_in %}
-                        <td data-sort="{{ arctic.date_in.strftime('%Y-%m-%d') }}">{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
+                        <td class="hidden md:table-cell" data-sort="{{ arctic.date_in.strftime('%Y-%m-%d') }}">{{ arctic.date_in.strftime('%d/%m/%Y') }}</td>
                     {% else %}
-                        <td></td>
+                        <td class="hidden md:table-cell"></td>
                     {% endif %}
 
 
-                    <td style="white-space: pre-line;" class="text-sm">{{ arctic.pick_up_location }}</td>
+                    <td style="white-space: pre-line;" class="lg:text-sm hidden sm:table-cell">{{ arctic.pick_up_location }}</td>
 
 
                     {% if (arctic.date_in and arctic.date_in < now) and (arctic.date_out == None or arctic.date_out > now ) %}
                         <td class="bg-orange-200 text-center">sinds {{ arctic.date_in.strftime('%d/%m/%Y') }}
                             {% if arctic.status =="Loaner" %}
-                                <p class="font-bold text-indigo-900">beschikbaar als Loaner</p>
+                                <p class="font-bold text-indigo-900 lg:text-sm">beschikbaar als Loaner</p>
                             {% endif %}</td>
                     {% else %}
                         <td></td>
@@ -137,27 +131,44 @@
 
 
                     {% if arctic.date_out %}
-                        <td data-sort="{{ arctic.date_out.strftime('%Y-%m-%d') }}">{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
+                        <td class="hidden md:table-cell" data-sort="{{ arctic.date_out.strftime('%Y-%m-%d') }}">{{ arctic.date_out.strftime('%d/%m/%Y') }}</td>
                     {% else %}
-                        <td></td>
+                        <td class="hidden md:table-cell"></td>
                     {% endif %}
 
 
-                    <td style="white-space: pre-line;" class="text-sm">{{ arctic.destination }}</td>
+                    <td style="white-space: pre-line;" class="lg:text-sm hidden sm:table-cell">{{ arctic.destination }}</td>
 
 
                     {% if arctic.remarks %}
-                        <td style="white-space: pre-line;" class="text-sm">{{ arctic.remarks }}</td>
+                        <td style="white-space: pre-line;" class="hidden lg:block lg:text-sm">{{ arctic.remarks }}</td>
                     {% else %}
-                        <td></td>
+                        <td class="hidden lg:block"></td>
                     {% endif %}
 
 
                     {% if current_user.firm == "Collibri" %}
-                        <td>
-                            <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline">
-                                <input class="btn btn-indigo py-1" type="submit" value="Wijzig"></form>
-                            <button class="btn btn-indigo py-1" onclick="showModal({{ arctic.id }})">X</button>
+                        <td class="hidden md:table-cell">
+                            <div class="flex flex-col lg:flex-row space-y-1 lg:space-y-0 lg:space-x-2">
+                                <form action="{{ url_for('change', id=arctic.id) }}" method="GET" class="inline-flex justify-center">
+                                    <button class="btn btn-indigo px-1" type="submit">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                        </svg>
+                                    </button>
+                                </form>
+                                <button class="btn btn-indigo flex justify-center px-1" onclick="showModal({{ arctic.id }})">
+
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+
+                                </button>
+                            </div>
                         </td>
                     {% endif %}
 
@@ -182,7 +193,7 @@
 
 
         {% if current_user.firm == 'Collibri' %}
-            <table class="w-full text-center bg-indigo-100 mt-4">
+            <table class="hidden md:block w-full text-center bg-indigo-100 mt-4">
                 {% if edit == True %}
                     <form action="{{ url_for('change', id=edit_id) }}" method="POST">
                 {% else %}
