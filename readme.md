@@ -42,8 +42,5 @@ flask run
 
 
 ### Pagina's
-* /login
 * /register
-* /logout
-* / (= index)
-* /all
+
