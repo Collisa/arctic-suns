@@ -56,7 +56,7 @@
                         <td></td>
                     </tr>
                 {% elif line.type_day == "verlof" %}
-                    <tr>
+                    <tr class="bg-orange-300 text-indigo-900">
                         <td>{{ weekDays[line.workday.weekday()] }}</td>
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>{{ line.type_day }}</td>
