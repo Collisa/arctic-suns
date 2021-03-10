@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+    {% include 'components/navbar.html' %}
 
 
 
@@ -96,7 +97,10 @@
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>{{ line.type_day }}</td>
                         {% if line.end_hour %}
-                            <td>{{ line.start_hour.strftime('%H:%M') }} - {{ line.end_hour.strftime('%H:%M') }}</td>
+                            {% if line.start_hour %}
+                                <td>{{ line.start_hour.strftime('%H:%M') }}
+                            {% endif %}
+                        - {{ line.end_hour.strftime('%H:%M') }}</td>
                         {% else %}
                             <td>{{ line.start_hour.strftime('%H:%M') }} - /</td>
                         {% endif %}
@@ -116,7 +120,8 @@
                         <td>{{ line.workday.strftime('%d/%m/%Y') }}</td>
                         <td>combi-dag</td>
                         {% if line.end_hour %}
-                            <td>{{ line.start_hour.strftime('%H:%M') }} - {{ line.end_hour.strftime('%H:%M') }}</td>
+                            <td>{{ line.start_hour.strftime('%H:%M') }}
+                                - {{ line.end_hour.strftime('%H:%M') }}</td>
                         {% else %}
                             <td>{{ line.start_hour.strftime('%H:%M') }} - /</td>
                         {% endif %}
