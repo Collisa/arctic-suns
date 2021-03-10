@@ -222,6 +222,8 @@ def month_view(id):
         year_id = int(request.args.get("year_id"))
         month_id = int(request.args.get("month_id"))
 
+        worker_name = Worker.query.filter(Worker.id == id).first().name
+
         firstdayofmonth = datetime.today().replace(
             year=year_id, month=month_id, day=1
         ) - timedelta(days=1)
@@ -248,6 +250,7 @@ def month_view(id):
             month_id=month_id,
             werkuren=werkuren,
             abs=abs,
+            worker_name=worker_name,
         )
 
 
