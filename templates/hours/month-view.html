@@ -25,7 +25,8 @@
             <div class="flex-1 text-center text-indigo-600">
                 <h1 class="font-bold text-4xl">Werkuren</h1>
             </div>
-            <div class="flex-1 text-right">
+            <div class="flex-1 justify-end flex items-center">
+                <div class="px-20 text-orange-500 text-lg font-bold uppercase">{{ worker_name }}</div>
                 <a href="{{ url_for('hours_index', person_id=id) }}"
                    class="bg-indigo-600 hover:bg-indigo-900 focus:shadow-outline rounded-md p-2 text-white font-bold">Terug</a>
             </div>

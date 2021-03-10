@@ -14,10 +14,12 @@
 </head>
 <body class="bg-blue-50">
 
-<div class="pb-20">
+<div class="">
     {% include 'components/navbar.html' %}
 
-    {% block content %}{% endblock %}
+    <div class="pb-20 w-11/12 mx-auto">
+        {% block content %}{% endblock %}
+    </div>
 </div>
 
 <div class="fixed bottom-0 w-full">
