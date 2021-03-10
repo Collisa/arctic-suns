@@ -1,8 +1,8 @@
 module.exports = {
-    // purge: {
-    //     content: ['./templates/*.html'],
-    //     content: ['./templates/**/*.html'],
-    // },
+    purge: {
+        content: ['./templates/*.html'],
+        content: ['./templates/**/*.html'],
+    },
     theme: {
         extend: {
             spacing: {
