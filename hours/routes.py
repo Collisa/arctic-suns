@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from datetime import date, datetime, timedelta
 from sqlalchemy.exc import IntegrityError
 import calendar
-from hours.forms import HoursForm, PersonForm, MonthForm, WorkerForm
+from hours.forms import HoursForm, PersonForm, MonthForm, WorkerForm, PersonMonthForm
 from hours.models import Employee, Worker
 from hours.extrahours_calculation import (
     calculate_extrahours_week,
@@ -221,7 +221,7 @@ def month_view(id):
     if current_user.firm == "Collibri":
         year_id = int(request.args.get("year_id"))
         month_id = int(request.args.get("month_id"))
-
+        print(year_id, month_id)
         worker_name = Worker.query.filter(Worker.id == id).first().name
 
         firstdayofmonth = datetime.today().replace(
@@ -248,9 +248,25 @@ def month_view(id):
             month_form=MonthForm(year_id=year_id, month_id=month_id),
             year_id=year_id,
             month_id=month_id,
+            person_month_form=PersonMonthForm(
+                person_id=id, month_id=month_id, year_id=year_id
+            ),
             werkuren=werkuren,
             abs=abs,
+            str=str,
             worker_name=worker_name,
+        )
+
+
+@app.route("/hours/month/redirect")
+@login_required
+def monthview_redirect():
+    if current_user.firm == "Collibri":
+        person_id = int(request.args.get("person_id"))
+        year_id = int(request.args.get("year_id"))
+        month_id = int(request.args.get("month_id"))
+        return redirect(
+            url_for("month_view", id=person_id, year_id=year_id, month_id=month_id)
         )
 
 

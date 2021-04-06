@@ -209,7 +209,7 @@
                                                     {% if data.weeklyview_days[i].end %}
                                                         {{ data.weeklyview_days[i].start.strftime('%H:%M') }} -
                                                         {{ data.weeklyview_days[i].end.strftime('%H:%M') }}
-                                                    {% else %}
+                                                    {% elif data.weeklyview_days[i].start.strftime %}
                                                         {{ data.weeklyview_days[i].start.strftime('%H:%M') }} - /
                                                     {% endif %}
                                                 {% elif data.weeklyview_days[i] and data.weeklyview_days[i].type == 'combi' %}
