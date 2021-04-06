@@ -3,6 +3,7 @@ from wtforms.fields.html5 import DateField
 from wtforms import (
     StringField,
     SubmitField,
+    HiddenField,
     SelectField,
     FloatField,
     validators,
@@ -41,6 +42,12 @@ class HoursForm(FlaskForm):
 
 class PersonForm(FlaskForm):
     person_id = SelectField("Werknemer", choices=employees)
+
+
+class PersonMonthForm(FlaskForm):
+    person_id = SelectField("Werknemer", choices=employees)
+    year_id = HiddenField()
+    month_id = HiddenField()
 
 
 class WorkerForm(FlaskForm):
